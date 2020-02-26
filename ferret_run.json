@@ -1,0 +1,27 @@
+{
+  "basic": {
+    "app_name": "ferret",
+    "cost_path": "/home/liuliu/Research/rapidlib-linux/modelConstr/Rapids/outputs/ferret/ferret-cost.fact",
+    "mv_path": "/home/liuliu/Research/rapidlib-linux/modelConstr/Rapids/outputs/ferret/ferret-mv.fact",
+    "defaultXML": "/home/liuliu/Research/rapidlib-linux/modelConstr/Rapids/outputs/ferret-default.xml"
+  },
+  "mission": {
+    "budget": 0.0,
+    "UNIT_PER_CHECK": 0,
+    "OFFLINE_SEARCH": false,
+    "REMOTE": false,
+    "GUROBI": true,
+    "CONT": true,
+    "RAPID_M": false,
+    "RUSH_TO_END": false,
+    "MISSION_LOG": true
+  },
+  "cost_rsdg": "/home/liuliu/Research/rapidlib-linux/modelConstr/Rapids/outputs/cost.rsdg",
+  "mv_rsdgs": [],
+  "mv_default_rsdg": "/home/liuliu/Research/rapidlib-linux/modelConstr/Rapids/outputs/mv0.rsdg",
+  "appMet": "/home/liuliu/Research/rapidlib-linux/modelConstr/appExt/ferretMet.py",
+  "rapidScript": "/home/liuliu/Research/rapidlib-linux/modelConstr/Rapids/rapid.py",
+  "seglvl": 0,
+  "desc": "/home/liuliu/Research/rapidlib-linux/modelConstr/data/ferretPort/depfileferret_new",
+  "preferences": {"ranking":1.0,"coverage":1.0}
+}
