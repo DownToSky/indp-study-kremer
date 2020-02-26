@@ -1,36 +1,18 @@
-import re
+import json
 
-def getConfigFile(filename):
-    config_file = open(filename,"r")
-    return config_file
+def readConfig( configFilePath):
+    with open(configFilePath) as json_file:
+        data =  json.load(json_file)
+        return data
+    
+def getVKnobs(data):
+    return(data['preferences'])
 
-def parseFile( configFile):
-    for line in configFile:
-        for word in line.split():
-            if(re.match('\"preferences\"', word)!= None):
-               tokenArr =  re.split('[":,{}]', line)
-               tokenArr = list(filter(None, tokenArr))
-               tokenArr = [token for token in tokenArr if token.strip()]
-               map = (generateMap(tokenArr))
-               break
-                   
-    configFile.close()
-    return map
+def updateKnobValue(data, knobName, value):
+    data[knobName] = value
 
-def generateMap(tokenArr):
-    print(tokenArr)
-    index = 1;
-    hashmap = {}
-
-    while(index < len(tokenArr)):
-        key = tokenArr[index]
-        index +=1
-        val = tokenArr[index]
-        hashmap[key] = val
-        index +=1
-    return hashmap
-
-def parse():
-    return parseFile(getConfigFile("ferret_run.config"))
+def writeConfig(jFile, configFilePath):
+    with open(configFilePath, 'w') as outfile:
+        json.dump(jFile, outfile)
 
 
