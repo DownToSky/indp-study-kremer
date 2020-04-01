@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>860</width>
-    <height>552</height>
+    <height>543</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -476,142 +476,14 @@ QCheckBox::indicator:disabled, QRadioButton::indicator:disabled
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="1">
-     <widget class="QPushButton" name="retrainButton">
+    <item row="0" column="4">
+     <widget class="QPushButton" name="resultPathButton">
       <property name="text">
-       <string>Re-Train</string>
+       <string>Results Location</string>
       </property>
      </widget>
     </item>
-    <item row="0" column="0">
-     <widget class="QPushButton" name="importButton">
-      <property name="text">
-       <string>Import Config Files</string>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="0">
-     <widget class="QGroupBox" name="missionExecBox">
-      <property name="title">
-       <string>Mission Execution Panel</string>
-      </property>
-      <layout class="QGridLayout" name="gridLayout_3">
-       <item row="0" column="0">
-        <widget class="QPushButton" name="startB">
-         <property name="text">
-          <string>Start</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <widget class="QPushButton" name="pauseB">
-         <property name="text">
-          <string>Pause</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QLabel" name="consumptionL">
-         <property name="text">
-          <string>Consumption: X Seconds</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1">
-        <widget class="QLabel" name="predictionErrorL">
-         <property name="text">
-          <string>Prediction Error: X%</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QLabel" name="perUnitConsumptionL">
-         <property name="text">
-          <string>Per Unit Consumption: X Seconds</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="0" colspan="2">
-        <widget class="QProgressBar" name="executionProgressBar">
-         <property name="value">
-          <number>24</number>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QLabel" name="remainingBudgetL">
-         <property name="text">
-          <string>Remaining Budget: X Seconds</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item row="3" column="1" colspan="3">
-     <widget class="QGroupBox" name="postExecBox">
-      <property name="title">
-       <string>Post-Execution Panel</string>
-      </property>
-      <layout class="QGridLayout" name="gridLayout_4">
-       <item row="0" column="0">
-        <widget class="QTableWidget" name="postExecTable">
-         <row>
-          <property name="text">
-           <string>Things</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>Some more Things</string>
-          </property>
-         </row>
-         <column>
-          <property name="text">
-           <string>Stuff</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>More Stuff</string>
-          </property>
-         </column>
-         <item row="1" column="0">
-          <property name="text">
-           <string>stuff has things</string>
-          </property>
-         </item>
-         <item row="1" column="1">
-          <property name="text">
-           <string>Things has stuff</string>
-          </property>
-         </item>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item row="1" column="0" rowspan="2">
-     <widget class="QGroupBox" name="productivityBox">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="title">
-       <string>Productivity Preview</string>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout_2"/>
-     </widget>
-    </item>
-    <item row="1" column="3" rowspan="2">
+    <item row="1" column="5" rowspan="2">
      <widget class="QGroupBox" name="resultBox">
       <property name="title">
        <string>Result Summary Panel</string>
@@ -739,7 +611,21 @@ QCheckBox::indicator:disabled, QRadioButton::indicator:disabled
       </layout>
      </widget>
     </item>
-    <item row="1" column="1" rowspan="2" colspan="2">
+    <item row="1" column="0" rowspan="2">
+     <widget class="QGroupBox" name="productivityBox">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="title">
+       <string>Productivity Preview</string>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2"/>
+     </widget>
+    </item>
+    <item row="1" column="2" rowspan="2" colspan="3">
      <widget class="QGroupBox" name="setupBox">
       <property name="title">
        <string>Mission Setup Panel</string>
@@ -852,6 +738,134 @@ QCheckBox::indicator:disabled, QRadioButton::indicator:disabled
         </widget>
        </item>
       </layout>
+     </widget>
+    </item>
+    <item row="3" column="2" colspan="4">
+     <widget class="QGroupBox" name="postExecBox">
+      <property name="title">
+       <string>Post-Execution Panel</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_4">
+       <item row="0" column="0">
+        <widget class="QTableWidget" name="postExecTable">
+         <row>
+          <property name="text">
+           <string>Things</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>Some more Things</string>
+          </property>
+         </row>
+         <column>
+          <property name="text">
+           <string>Stuff</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>More Stuff</string>
+          </property>
+         </column>
+         <item row="1" column="0">
+          <property name="text">
+           <string>stuff has things</string>
+          </property>
+         </item>
+         <item row="1" column="1">
+          <property name="text">
+           <string>Things has stuff</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QGroupBox" name="missionExecBox">
+      <property name="title">
+       <string>Mission Execution Panel</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_3">
+       <item row="0" column="0">
+        <widget class="QPushButton" name="startB">
+         <property name="text">
+          <string>Start</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QPushButton" name="pauseB">
+         <property name="text">
+          <string>Pause</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLabel" name="consumptionL">
+         <property name="text">
+          <string>Consumption: X Seconds</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QLabel" name="predictionErrorL">
+         <property name="text">
+          <string>Prediction Error: X%</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLabel" name="perUnitConsumptionL">
+         <property name="text">
+          <string>Per Unit Consumption: X Seconds</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0" colspan="2">
+        <widget class="QProgressBar" name="executionProgressBar">
+         <property name="value">
+          <number>24</number>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLabel" name="remainingBudgetL">
+         <property name="text">
+          <string>Remaining Budget: X Seconds</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QPushButton" name="retrainButton">
+      <property name="text">
+       <string>Re-Train</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="3">
+     <widget class="QPushButton" name="configPathButton">
+      <property name="text">
+       <string>Import Config Files</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="2">
+     <widget class="QPushButton" name="ferretPathButton">
+      <property name="text">
+       <string>Import Ferret</string>
+      </property>
      </widget>
     </item>
    </layout>
