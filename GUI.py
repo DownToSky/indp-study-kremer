@@ -22,6 +22,27 @@ class UI_Controller(QtWidgets.QMainWindow):
         self.resultPath = None
         self.ui.resultPathButton.pressed.connect(self.getResultPath)
 
+        self.ui.knob1.setMinimum(0)
+        self.ui.knob1.setMaximum(100)
+        self.ui.knob1.valueChanged.connect(lambda: self.updatePrefrences(self.ui.knob1))
+
+        self.ui.knob2.setMinimum(0)
+        self.ui.knob2.setMaximum(100)
+
+
+        self.ui.knob3.setMinimum(0)
+        self.ui.knob3.setMaximum(100)
+
+        self.configs = None
+
+    def updatePrefrences(self, knob):
+        val = self.ui.knob1.value()
+        print("knob change: " + str(val))
+
+
+    def loadConfig(self):
+        with open("r", self.configDir) as confFile:
+            self.configs = json.load(confFile)
 
     # TODO: makesure the returned path is nonempty
     def getFerretPath(self):
@@ -35,7 +56,12 @@ class UI_Controller(QtWidgets.QMainWindow):
         path = QtWidgets.QFileDialog.getOpenFileName()
 
         print("config directory: " + str(path))
-        self.configDir = path[0]
+        if path[0] != "" or path[0] != None:
+            self.configDir = path[0]
+            self.loadConfig()
+        else:
+            self.configDir = None
+
 
     # TODO: makesure the returned path is nonempty
     def getResultPath(self):

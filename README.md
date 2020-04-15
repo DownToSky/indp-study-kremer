@@ -8,3 +8,8 @@ GUI should support:
 * For each knob, it should show a chart of budget vs maximum power gain
 * Productivity profile
 * Progress in terms of finished work
+
+
+
+To read:
+* Read our paper again
