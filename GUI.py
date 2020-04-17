@@ -1,13 +1,13 @@
 from UI.RAPIDS_mainWindow import Ui_MainWindow
 import sys
 from PySide2 import QtCore, QtWidgets, QtGui
-from PySide2.QtUiTools import QUiLoader
+from PySide2.QtCore import Qt
 import json
 
 
 CONFIG_PATH = "ferret_run.json"
+KNOB_LOC = "preferences"
 class UI_Controller(QtWidgets.QMainWindow):
-
 
     def __init__ (self):
         super(UI_Controller, self).__init__()
@@ -25,33 +25,19 @@ class UI_Controller(QtWidgets.QMainWindow):
 
         self.ui.doneB.pressed.connect(self.saveConfig)
 
-        self.ui.knob1.setMinimum(0)
-        self.ui.knob1.name = "coverage"
-        self.ui.knob1.setMaximum(100)
-        self.ui.knob1.valueChanged.connect(lambda: self.updatePrefrences(self.ui.knob1))
-
-        self.ui.knob2.setMinimum(0)
-        self.ui.knob2.name = "ranking"
-        self.ui.knob2.setMaximum(100)
-        self.ui.knob2.valueChanged.connect(lambda: self.updatePrefrences(self.ui.knob2))
-
-        self.ui.knob3.setMinimum(0)
-        self.ui.knob3.name = "knob 3"
-        self.ui.knob3.setMaximum(100)
-        self.ui.knob3.valueChanged.connect(lambda: self.updatePrefrences(self.ui.knob3))
+        self.knobs = list()
+        self.knobLabels = list()
+        self.submatrixLabels = list()
 
         self.configs = None
 
-    def updatePrefrences(self, knob):
+
+    def updatePrefrences(self):
         if self.configs == None:
             print("load configs first!")
             return
-            
-        val = knob.value()
-        knob_name = knob.name
-        print(knob_name + " change: " + str(val))
-        if knob.name == "coverage" or knob.name == "ranking":
-            self.configs["preferences"][knob_name] = val
+        knob_name = self.sender().objectName()
+        self.configs[KNOB_LOC][knob_name] = self.sender().value()
 
 
     def saveConfig(self):
@@ -62,9 +48,48 @@ class UI_Controller(QtWidgets.QMainWindow):
         with open(self.configDir, 'w') as confFile:
             json.dump(self.configs, confFile)
 
+    def loadKnobs(self):
+        if KNOB_LOC not in self.configs:
+            return
+        MIN_VAL = 1
+        MAX_VAL = 100
+        self.knobs = list()
+        for i, knob_name in enumerate(self.configs[KNOB_LOC]):
+            print(knob_name)
+            # Labels showing which knob is which prefrence
+            self.knobLabels.append(QtWidgets.QLabel())
+            self.knobLabels[i].setText(knob_name)
+            self.knobLabels[i].setAlignment(Qt.AlignCenter|Qt.AlignBottom)
+            # Labels corresponding to submatrics for knobs
+            self.submatrixLabels.append(QtWidgets.QLabel())
+            self.submatrixLabels[i].setText("{} submatrics: x%".format(knob_name))
+            self.submatrixLabels[i].setAlignment(Qt.AlignCenter)
+
+            self.knobs.append(QtWidgets.QDial())
+            self.knobs[i].setObjectName(knob_name)   #used to get the object later
+            self.knobs[i].setMaximum(MAX_VAL)
+            self.knobs[i].setMinimum(MIN_VAL)
+            value_in_config = self.configs[KNOB_LOC][knob_name]
+            if value_in_config > MAX_VAL:
+                self.knobs[i].setValue(MAX_VAL)
+            elif value_in_config < MIN_VAL:
+                self.knobs[i].setValue(MIN_VAL)
+            else:
+                self.knobs[i].setValue(value_in_config)
+            
+            self.knobs[i].valueChanged.connect(self.updatePrefrences)
+
+            self.ui.submetricLayout.addWidget(self.submatrixLabels[i])
+            self.ui.knobNameLayout.addWidget(self.knobLabels[i])
+            self.ui.knobsLayout.addWidget(self.knobs[i])
+
+            self.knobLabels[i].show()
+            self.knobs[i].show()
+
     def loadConfig(self):
         with open(self.configDir, 'r') as confFile:
             self.configs = json.load(confFile)
+            self.loadKnobs()
 
     # TODO: makesure the returned path is nonempty
     def getFerretPath(self):
