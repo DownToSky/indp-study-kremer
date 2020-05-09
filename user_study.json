@@ -1,0 +1,106 @@
+{
+    "overall_desc": "this is the challenge for knob tuning",
+    "challenge_list": [
+        {
+            "name": "ferret",
+            "cfg_location": "config.json",
+            "budget": 90,
+            "knob_type": "virtual",
+            "sub-metric": "ranking",
+            "target": 90,
+            "id": 0,
+            "desc": "my description"
+        },
+        {
+            "name": "ferret",
+            "cfg_location": "config.json",
+            "budget": 70,
+            "knob_type": "virtual",
+            "sub-metric": "coverage",
+            "target": 80,
+            "id": 1,
+            "desc": "my description"
+        },
+        {
+            "name": "ferret",
+            "cfg_location": "config.json",
+            "budget": 90,
+            "knob_type": "concrete",
+            "sub-metric": "ranking",
+            "target": 80,
+            "id": 2,
+            "desc": "my description"
+        },
+        {
+            "name": "ferret",
+            "cfg_location": "config.json",
+            "budget": 90,
+            "knob_type": "concrete",
+            "sub-metric": "ranking",
+            "target": 75,
+            "id": 3,
+            "desc": "my description"
+        },
+        {
+            "name": "ferret",
+            "cfg_location": "config.json",
+            "budget": 90,
+            "knob_type": "virtual",
+            "sub-metric": "coverage",
+            "target": 80,
+            "id": 4,
+            "desc": "my description"
+        },
+        {
+            "name": "ferret",
+            "cfg_location": "config.json",
+            "budget": 90,
+            "knob_type": "concrete",
+            "sub-metric": "ranking",
+            "target": 60,
+            "id": 5,
+            "desc": "my description"
+        },
+        {
+            "name": "ferret",
+            "cfg_location": "config.json",
+            "budget": 90,
+            "knob_type": "virtual",
+            "sub-metric": "ranking",
+            "target": 80,
+            "id": 6,
+            "desc": "my description"
+        },
+        {
+            "name": "ferret",
+            "cfg_location": "config.json",
+            "budget": 90,
+            "knob_type": "virtual",
+            "sub-metric": "ranking",
+            "target": 99,
+            "id": 7,
+            "desc": "my description"
+        },
+        {
+            "name": "ferret",
+            "cfg_location": "config.json",
+            "budget": 90,
+            "knob_type": "virtual",
+            "sub-metric": "coverage",
+            "target": 80,
+            "id": 8,
+            "desc": "my description"
+        },
+        {
+            "name": "ferret",
+            "cfg_location": "config.json",
+            "budget": 90,
+            "knob_type": "concrete",
+            "sub-metric": "coverage",
+            "target": 70,
+            "id": 9,
+            "desc": "my description"
+        }
+    ]
+}
+

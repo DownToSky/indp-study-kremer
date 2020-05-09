@@ -11,5 +11,8 @@ GUI should support:
 
 
 
-To read:
-* Read our paper again
+TODO:
+CHECK saves, and does an empty func
+user study toggle
+toggle virtual/physical knobs
+challenges on the left
