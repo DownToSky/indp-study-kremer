@@ -98,6 +98,8 @@ class UI_Controller(QtWidgets.QMainWindow):
         tryInfo["knob_info"] = dict(zip([knob_name.objectName() for knob_name in self.knobs], [knob_val.value() for knob_val in self.knobs]))
         print(str(tryInfo["knob_info"]))
         quality, budget_utilizaiton = self.simulateRandomResult(tryInfo["knob_info"], self.challenges["challenge_list"][ch_index]["budget"])
+        self.ui.budgetUtilValL_2.setText("{}%".format(budget_utilizaiton))
+        self.ui.qualityValL_2.setText("{}%".format(quality))
         tryInfo["quality_percent"] = quality
         tryInfo["budget_percent"] = budget_utilizaiton
         self.challenges["challenge_list"][ch_index]["logs"]["tries"].append(tryInfo)
