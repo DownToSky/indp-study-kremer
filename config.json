@@ -1,7 +1,7 @@
 {
     "basic": {
       "app_name": "ferret",
-      "cost_path": "/home/liuliu/Research/rapidlib-linux/modelConstr/Rapids/outputs/ferret/ferret-cost.fact",
+      "cost_path": "../facts/ferret/ferret-cost.fact",
       "mv_path": "/home/liuliu/Research/rapidlib-linux/modelConstr/Rapids/outputs/ferret/ferret-mv.fact",
       "defaultXML": "/home/liuliu/Research/rapidlib-linux/modelConstr/Rapids/outputs/ferret-default.xml"
     },

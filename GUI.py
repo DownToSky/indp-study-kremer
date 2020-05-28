@@ -1,10 +1,13 @@
 from UI.RAPIDS_mainWindow import Ui_MainWindow
+from Core.Simulater import simulateResult
 import sys
 from PySide2 import QtCore, QtWidgets, QtGui
 from PySide2.QtCore import Qt
 import json
 import time
 import random
+import os
+import pathlib
 
 
 class UI_Controller(QtWidgets.QMainWindow):
@@ -48,6 +51,12 @@ class UI_Controller(QtWidgets.QMainWindow):
         self.disabled_unused()
 
         self.configs = None
+        self.__set_root_dir();
+
+    def __set_root_dir(self):
+        # set the current path
+        current_dir = str(pathlib.Path().absolute())
+        os.environ["RAPIDS_HOME"] = current_dir
 
     def nextStudy(self):
         if self.curr_challenge == None:
@@ -96,8 +105,8 @@ class UI_Controller(QtWidgets.QMainWindow):
         tryInfo = dict()
         tryInfo["time"] = time.time()
         tryInfo["knob_info"] = dict(zip([knob_name.objectName() for knob_name in self.knobs], [knob_val.value() for knob_val in self.knobs]))
-        print(str(tryInfo["knob_info"]))
-        quality, budget_utilizaiton = self.simulateRandomResult(tryInfo["knob_info"], self.challenges["challenge_list"][ch_index]["budget"])
+        self.saveConfig()
+        quality, budget_utilizaiton = simulateResult(self.challenges["challenge_list"][ch_index]["cfg_location"], self.challenges["challenge_list"][ch_index]["budget"], self.challenges["challenge_list"][ch_index]["sub-metric"], tryInfo["knob_info"])
         self.ui.budgetUtilValL_2.setText("{}%".format(budget_utilizaiton))
         self.ui.qualityValL_2.setText("{}%".format(quality))
         tryInfo["quality_percent"] = quality
@@ -151,7 +160,7 @@ class UI_Controller(QtWidgets.QMainWindow):
             return
 
         with open(self.configDir, 'w') as confFile:
-            json.dump(self.configs, confFile)
+            json.dump(self.configs, confFile, indent=4)
 
     def loadKnobs(self):
         if self.challenges["challenge_list"][self.curr_challenge]["knob_type"] not in self.configs:

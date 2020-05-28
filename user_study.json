@@ -3,8 +3,8 @@
     "challenge_list": [
         {
             "name": "ferret",
-            "cfg_location": "config.json",
-            "budget": 90,
+            "cfg_location": "./data/configs/ferret/config.json",
+            "budget": 77,
             "knob_type": "virtual",
             "sub-metric": "ranking",
             "target": 90,
