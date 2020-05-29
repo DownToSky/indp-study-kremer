@@ -4,7 +4,7 @@
         {
             "name": "ferret",
             "cfg_location": "./data/configs/ferret/config.json",
-            "budget": 77,
+            "budget": 64.5,
             "knob_type": "virtual",
             "sub-metric": "ranking",
             "target": 90,

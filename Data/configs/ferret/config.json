@@ -30,8 +30,8 @@
     "seglvl": 1,
     "desc": "Data/desc/ferret/depfileferret",
     "virtual": {
-        "coverage": 50,
-        "ranking": 64
+        "coverage": 1,
+        "ranking": 11
     },
     "concrete": {
         "knob1": 1.0,

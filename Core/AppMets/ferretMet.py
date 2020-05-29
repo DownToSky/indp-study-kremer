@@ -107,11 +107,12 @@ class appMethods(AppMethods):
         coverage = values["coverage"]
         ranking_pref = preferences["ranking"]
         coverage_pref = preferences["coverage"]
-        maxError = (2 * coverage_pref - ranking_pref) * 50 * 51
+        maxError = (2 * coverage_pref + ranking_pref) * 50 * 51
         # 50 images in real run
         ranking_res = (1.0 +
                        (ranking_pref * ranking + 2 * coverage_pref * coverage)
                        / float(maxError)) * 100.0
+        print(ranking_res)
         return ranking_res
 
     def rank(self, img, imglist):

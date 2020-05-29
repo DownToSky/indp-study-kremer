@@ -38,13 +38,19 @@ def simulateResult(configPath, budget, targetMetric, isVirtual=True):
             rsdg.fromFile(RAPIDS_HOME+"/"+rsdg_path)
             mv_rsdgs[knob_name] = rsdg
 
+    # normalize the pref
+    min_val = min(preferences.values())
+    for metric, metric_val in preferences.items():
+        preferences[metric] = float(metric_val) / float(min_val)
+    print("your preference,", preferences)
+
     factfile, mvfactfile = genFactWithRSDG(app_name, groundTruth_profile,
                                            cost_rsdg, mv_rsdgs, appMethod,
                                            preferences)
     readFact(mvfactfile, knobs, groundTruth_profile, False)
     cost, mv = groundTruth_profile.getOptimal(budget, targetMetric)
-    print(cost, mv)
-    return cost, mv
+    print(targetMetric,":", mv)
+    return cost/budget, mv
 
 def genFactWithRSDG(appname, config_table, cost_rsdg, mv_rsdgs, appMethod,
                     preferences):
