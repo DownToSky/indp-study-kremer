@@ -20,7 +20,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(997, 665)
+        MainWindow.resize(766, 419)
         MainWindow.setStyleSheet(u"QToolTip\n"
 "{\n"
 "     border: 1px solid black;\n"
@@ -597,10 +597,10 @@ class Ui_MainWindow(object):
 
         self.gridLayout_5.addWidget(self.retrainButton, 0, 0, 1, 1)
 
-        self.ferretPathButton = QPushButton(self.productionPage)
-        self.ferretPathButton.setObjectName(u"ferretPathButton")
+        self.programPathButton = QPushButton(self.productionPage)
+        self.programPathButton.setObjectName(u"programPathButton")
 
-        self.gridLayout_5.addWidget(self.ferretPathButton, 0, 1, 1, 1)
+        self.gridLayout_5.addWidget(self.programPathButton, 0, 1, 1, 1)
 
         self.configPathButton = QPushButton(self.productionPage)
         self.configPathButton.setObjectName(u"configPathButton")
@@ -754,146 +754,6 @@ class Ui_MainWindow(object):
         self.studyPage.setObjectName(u"studyPage")
         self.gridLayout_7 = QGridLayout(self.studyPage)
         self.gridLayout_7.setObjectName(u"gridLayout_7")
-        self.studyToggleB_study = QPushButton(self.studyPage)
-        self.studyToggleB_study.setObjectName(u"studyToggleB_study")
-
-        self.gridLayout_7.addWidget(self.studyToggleB_study, 0, 3, 1, 1)
-
-        self.horizontalSpacer_2 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.gridLayout_7.addItem(self.horizontalSpacer_2, 0, 2, 1, 1)
-
-        self.studySetupBox = QGroupBox(self.studyPage)
-        self.studySetupBox.setObjectName(u"studySetupBox")
-        self.gridLayout_6 = QGridLayout(self.studySetupBox)
-        self.gridLayout_6.setObjectName(u"gridLayout_6")
-        self.line_2 = QFrame(self.studySetupBox)
-        self.line_2.setObjectName(u"line_2")
-        self.line_2.setFrameShape(QFrame.HLine)
-        self.line_2.setFrameShadow(QFrame.Sunken)
-
-        self.gridLayout_6.addWidget(self.line_2, 6, 0, 1, 3)
-
-        self.knobsLayout_study = QHBoxLayout()
-        self.knobsLayout_study.setObjectName(u"knobsLayout_study")
-
-        self.gridLayout_6.addLayout(self.knobsLayout_study, 3, 0, 1, 3)
-
-        self.knobNameLayout_study = QHBoxLayout()
-        self.knobNameLayout_study.setSpacing(0)
-        self.knobNameLayout_study.setObjectName(u"knobNameLayout_study")
-        self.knobNameLayout_study.setSizeConstraint(QLayout.SetDefaultConstraint)
-
-        self.gridLayout_6.addLayout(self.knobNameLayout_study, 1, 0, 1, 3)
-
-        self.budgetL_study = QLabel(self.studySetupBox)
-        self.budgetL_study.setObjectName(u"budgetL_study")
-
-        self.gridLayout_6.addWidget(self.budgetL_study, 5, 0, 1, 1)
-
-        self.checkB_study = QPushButton(self.studySetupBox)
-        self.checkB_study.setObjectName(u"checkB_study")
-
-        self.gridLayout_6.addWidget(self.checkB_study, 5, 2, 1, 1)
-
-        self.knobTypeToggleB = QPushButton(self.studySetupBox)
-        self.knobTypeToggleB.setObjectName(u"knobTypeToggleB")
-
-        self.gridLayout_6.addWidget(self.knobTypeToggleB, 0, 0, 1, 1)
-
-        self.budgetAmountL_study = QLabel(self.studySetupBox)
-        self.budgetAmountL_study.setObjectName(u"budgetAmountL_study")
-
-        self.gridLayout_6.addWidget(self.budgetAmountL_study, 5, 1, 1, 1)
-
-        self.nextB_study = QPushButton(self.studySetupBox)
-        self.nextB_study.setObjectName(u"nextB_study")
-
-        self.gridLayout_6.addWidget(self.nextB_study, 7, 1, 1, 1)
-
-        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
-
-        self.gridLayout_6.addItem(self.verticalSpacer, 4, 1, 1, 1)
-
-
-        self.gridLayout_7.addWidget(self.studySetupBox, 1, 1, 1, 2)
-
-        self.challengeImportB = QPushButton(self.studyPage)
-        self.challengeImportB.setObjectName(u"challengeImportB")
-
-        self.gridLayout_7.addWidget(self.challengeImportB, 0, 1, 1, 1)
-
-        self.resultBox_study = QGroupBox(self.studyPage)
-        self.resultBox_study.setObjectName(u"resultBox_study")
-        self.verticalLayout_5 = QVBoxLayout(self.resultBox_study)
-        self.verticalLayout_5.setObjectName(u"verticalLayout_5")
-        self.budgetUtilL_2 = QLabel(self.resultBox_study)
-        self.budgetUtilL_2.setObjectName(u"budgetUtilL_2")
-        self.budgetUtilL_2.setAlignment(Qt.AlignCenter)
-
-        self.verticalLayout_5.addWidget(self.budgetUtilL_2)
-
-        self.budgetUtilValL_2 = QLabel(self.resultBox_study)
-        self.budgetUtilValL_2.setObjectName(u"budgetUtilValL_2")
-        self.budgetUtilValL_2.setAlignment(Qt.AlignCenter)
-
-        self.verticalLayout_5.addWidget(self.budgetUtilValL_2)
-
-        self.verticalSpacer_4 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
-
-        self.verticalLayout_5.addItem(self.verticalSpacer_4)
-
-        self.successL_2 = QLabel(self.resultBox_study)
-        self.successL_2.setObjectName(u"successL_2")
-        self.successL_2.setAlignment(Qt.AlignCenter)
-
-        self.verticalLayout_5.addWidget(self.successL_2)
-
-        self.successValL_2 = QLabel(self.resultBox_study)
-        self.successValL_2.setObjectName(u"successValL_2")
-        self.successValL_2.setAlignment(Qt.AlignCenter)
-
-        self.verticalLayout_5.addWidget(self.successValL_2)
-
-        self.verticalSpacer_5 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
-
-        self.verticalLayout_5.addItem(self.verticalSpacer_5)
-
-        self.qualityL_2 = QLabel(self.resultBox_study)
-        self.qualityL_2.setObjectName(u"qualityL_2")
-        self.qualityL_2.setAlignment(Qt.AlignCenter)
-
-        self.verticalLayout_5.addWidget(self.qualityL_2)
-
-        self.qualityValL_2 = QLabel(self.resultBox_study)
-        self.qualityValL_2.setObjectName(u"qualityValL_2")
-        self.qualityValL_2.setAlignment(Qt.AlignCenter)
-
-        self.verticalLayout_5.addWidget(self.qualityValL_2)
-
-        self.verticalSpacer_6 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
-
-        self.verticalLayout_5.addItem(self.verticalSpacer_6)
-
-        self.submetricsL_2 = QLabel(self.resultBox_study)
-        self.submetricsL_2.setObjectName(u"submetricsL_2")
-        self.submetricsL_2.setAlignment(Qt.AlignCenter)
-
-        self.verticalLayout_5.addWidget(self.submetricsL_2)
-
-        self.submetricsValL_2 = QLabel(self.resultBox_study)
-        self.submetricsValL_2.setObjectName(u"submetricsValL_2")
-        self.submetricsValL_2.setAlignment(Qt.AlignCenter)
-
-        self.verticalLayout_5.addWidget(self.submetricsValL_2)
-
-
-        self.gridLayout_7.addWidget(self.resultBox_study, 1, 3, 1, 1)
-
-        self.horizontalSpacer_3 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.gridLayout_7.addItem(self.horizontalSpacer_3, 0, 0, 1, 1)
-
         self.instructionsBox = QGroupBox(self.studyPage)
         self.instructionsBox.setObjectName(u"instructionsBox")
         sizePolicy.setHeightForWidth(self.instructionsBox.sizePolicy().hasHeightForWidth())
@@ -1006,6 +866,137 @@ class Ui_MainWindow(object):
 
         self.gridLayout_7.addWidget(self.instructionsBox, 1, 0, 1, 1)
 
+        self.resultBox_study = QGroupBox(self.studyPage)
+        self.resultBox_study.setObjectName(u"resultBox_study")
+        self.verticalLayout_5 = QVBoxLayout(self.resultBox_study)
+        self.verticalLayout_5.setObjectName(u"verticalLayout_5")
+        self.successL_study = QLabel(self.resultBox_study)
+        self.successL_study.setObjectName(u"successL_study")
+        self.successL_study.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout_5.addWidget(self.successL_study)
+
+        self.successValL_study = QLabel(self.resultBox_study)
+        self.successValL_study.setObjectName(u"successValL_study")
+        self.successValL_study.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout_5.addWidget(self.successValL_study)
+
+        self.qualityL_study = QLabel(self.resultBox_study)
+        self.qualityL_study.setObjectName(u"qualityL_study")
+        self.qualityL_study.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout_5.addWidget(self.qualityL_study)
+
+        self.qualityValL_study = QLabel(self.resultBox_study)
+        self.qualityValL_study.setObjectName(u"qualityValL_study")
+        self.qualityValL_study.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout_5.addWidget(self.qualityValL_study)
+
+        self.verticalSpacer_6 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+
+        self.verticalLayout_5.addItem(self.verticalSpacer_6)
+
+        self.line_8 = QFrame(self.resultBox_study)
+        self.line_8.setObjectName(u"line_8")
+        self.line_8.setFrameShape(QFrame.HLine)
+        self.line_8.setFrameShadow(QFrame.Sunken)
+
+        self.verticalLayout_5.addWidget(self.line_8)
+
+        self.submetricsL_study = QLabel(self.resultBox_study)
+        self.submetricsL_study.setObjectName(u"submetricsL_study")
+        self.submetricsL_study.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout_5.addWidget(self.submetricsL_study)
+
+        self.submetricsResultLayout_study = QFormLayout()
+        self.submetricsResultLayout_study.setObjectName(u"submetricsResultLayout_study")
+
+        self.verticalLayout_5.addLayout(self.submetricsResultLayout_study)
+
+
+        self.gridLayout_7.addWidget(self.resultBox_study, 1, 3, 1, 1)
+
+        self.studyToggleB_study = QPushButton(self.studyPage)
+        self.studyToggleB_study.setObjectName(u"studyToggleB_study")
+
+        self.gridLayout_7.addWidget(self.studyToggleB_study, 0, 3, 1, 1)
+
+        self.horizontalSpacer_2 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.gridLayout_7.addItem(self.horizontalSpacer_2, 0, 2, 1, 1)
+
+        self.challengeImportB = QPushButton(self.studyPage)
+        self.challengeImportB.setObjectName(u"challengeImportB")
+
+        self.gridLayout_7.addWidget(self.challengeImportB, 0, 1, 1, 1)
+
+        self.horizontalSpacer_3 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.gridLayout_7.addItem(self.horizontalSpacer_3, 0, 0, 1, 1)
+
+        self.studySetupBox = QGroupBox(self.studyPage)
+        self.studySetupBox.setObjectName(u"studySetupBox")
+        self.gridLayout_6 = QGridLayout(self.studySetupBox)
+        self.gridLayout_6.setObjectName(u"gridLayout_6")
+        self.budgetL_study = QLabel(self.studySetupBox)
+        self.budgetL_study.setObjectName(u"budgetL_study")
+
+        self.gridLayout_6.addWidget(self.budgetL_study, 7, 0, 1, 1)
+
+        self.line_2 = QFrame(self.studySetupBox)
+        self.line_2.setObjectName(u"line_2")
+        self.line_2.setFrameShape(QFrame.HLine)
+        self.line_2.setFrameShadow(QFrame.Sunken)
+
+        self.gridLayout_6.addWidget(self.line_2, 8, 0, 1, 3)
+
+        self.knobNameLayout_study = QHBoxLayout()
+        self.knobNameLayout_study.setSpacing(0)
+        self.knobNameLayout_study.setObjectName(u"knobNameLayout_study")
+        self.knobNameLayout_study.setSizeConstraint(QLayout.SetDefaultConstraint)
+
+        self.gridLayout_6.addLayout(self.knobNameLayout_study, 1, 0, 1, 3)
+
+        self.knobsLayout_study = QHBoxLayout()
+        self.knobsLayout_study.setObjectName(u"knobsLayout_study")
+
+        self.gridLayout_6.addLayout(self.knobsLayout_study, 3, 0, 1, 3)
+
+        self.checkB_study = QPushButton(self.studySetupBox)
+        self.checkB_study.setObjectName(u"checkB_study")
+
+        self.gridLayout_6.addWidget(self.checkB_study, 7, 2, 1, 1)
+
+        self.budgetAmountL_study = QLabel(self.studySetupBox)
+        self.budgetAmountL_study.setObjectName(u"budgetAmountL_study")
+
+        self.gridLayout_6.addWidget(self.budgetAmountL_study, 7, 1, 1, 1)
+
+        self.knobTypeToggleB = QPushButton(self.studySetupBox)
+        self.knobTypeToggleB.setObjectName(u"knobTypeToggleB")
+
+        self.gridLayout_6.addWidget(self.knobTypeToggleB, 0, 0, 1, 1)
+
+        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+
+        self.gridLayout_6.addItem(self.verticalSpacer, 5, 1, 1, 1)
+
+        self.nextB_study = QPushButton(self.studySetupBox)
+        self.nextB_study.setObjectName(u"nextB_study")
+
+        self.gridLayout_6.addWidget(self.nextB_study, 9, 1, 1, 1)
+
+        self.knobValueLayout_study = QHBoxLayout()
+        self.knobValueLayout_study.setObjectName(u"knobValueLayout_study")
+
+        self.gridLayout_6.addLayout(self.knobValueLayout_study, 4, 0, 1, 3)
+
+
+        self.gridLayout_7.addWidget(self.studySetupBox, 1, 1, 1, 2)
+
         self.stackedWidget.addWidget(self.studyPage)
 
         self.gridLayout.addWidget(self.stackedWidget, 0, 0, 1, 1)
@@ -1050,7 +1041,7 @@ class Ui_MainWindow(object):
         self.productivityBox.setTitle(QCoreApplication.translate("MainWindow", u"Productivity Preview", None))
         self.resultPathButton.setText(QCoreApplication.translate("MainWindow", u"Results Location", None))
         self.retrainButton.setText(QCoreApplication.translate("MainWindow", u"Re-Train", None))
-        self.ferretPathButton.setText(QCoreApplication.translate("MainWindow", u"Import Ferret", None))
+        self.programPathButton.setText(QCoreApplication.translate("MainWindow", u"Import Program", None))
         self.configPathButton.setText(QCoreApplication.translate("MainWindow", u"Import Config Files", None))
         self.studyToggleB_product.setText(QCoreApplication.translate("MainWindow", u"Switch to Study Mode", None))
         self.resultBox.setTitle(QCoreApplication.translate("MainWindow", u"Result Summary Panel", None))
@@ -1069,23 +1060,6 @@ class Ui_MainWindow(object):
         self.budgetL.setText(QCoreApplication.translate("MainWindow", u"Budget:", None))
         self.qualityEstimateL.setText(QCoreApplication.translate("MainWindow", u"Estimated Quality", None))
         self.checkB.setText(QCoreApplication.translate("MainWindow", u"Check", None))
-        self.studyToggleB_study.setText(QCoreApplication.translate("MainWindow", u"Switch to Production Mode", None))
-        self.studySetupBox.setTitle(QCoreApplication.translate("MainWindow", u"Mission Setup Panel", None))
-        self.budgetL_study.setText(QCoreApplication.translate("MainWindow", u"Budget:", None))
-        self.checkB_study.setText(QCoreApplication.translate("MainWindow", u"Check", None))
-        self.knobTypeToggleB.setText(QCoreApplication.translate("MainWindow", u"Toggle Concrete Knobs", None))
-        self.budgetAmountL_study.setText("")
-        self.nextB_study.setText(QCoreApplication.translate("MainWindow", u"Next Challenge", None))
-        self.challengeImportB.setText(QCoreApplication.translate("MainWindow", u"Import Challenges", None))
-        self.resultBox_study.setTitle(QCoreApplication.translate("MainWindow", u"Result Summary Panel", None))
-        self.budgetUtilL_2.setText(QCoreApplication.translate("MainWindow", u"Budget Utilization:", None))
-        self.budgetUtilValL_2.setText(QCoreApplication.translate("MainWindow", u"X%", None))
-        self.successL_2.setText(QCoreApplication.translate("MainWindow", u"Sucess:", None))
-        self.successValL_2.setText(QCoreApplication.translate("MainWindow", u"True/False", None))
-        self.qualityL_2.setText(QCoreApplication.translate("MainWindow", u"Overall Quality:", None))
-        self.qualityValL_2.setText(QCoreApplication.translate("MainWindow", u"X%", None))
-        self.submetricsL_2.setText(QCoreApplication.translate("MainWindow", u"Sub-metrics:", None))
-        self.submetricsValL_2.setText(QCoreApplication.translate("MainWindow", u"x_1, x_2, x_3", None))
         self.instructionsBox.setTitle(QCoreApplication.translate("MainWindow", u"Instrunctions", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"Current Challenge:", None))
         self.appNameL.setText("")
@@ -1095,5 +1069,19 @@ class Ui_MainWindow(object):
         self.targetL.setText(QCoreApplication.translate("MainWindow", u"Target", None))
         self.targetNameL.setText("")
         self.challengeNumL.setText(QCoreApplication.translate("MainWindow", u"(0 / 10)", None))
+        self.resultBox_study.setTitle(QCoreApplication.translate("MainWindow", u"Result Summary Panel", None))
+        self.successL_study.setText(QCoreApplication.translate("MainWindow", u"Sucess / Fail:", None))
+        self.successValL_study.setText("")
+        self.qualityL_study.setText(QCoreApplication.translate("MainWindow", u"Target Submetric:", None))
+        self.qualityValL_study.setText("")
+        self.submetricsL_study.setText(QCoreApplication.translate("MainWindow", u"Sub-metrics:", None))
+        self.studyToggleB_study.setText(QCoreApplication.translate("MainWindow", u"Switch to Production Mode", None))
+        self.challengeImportB.setText(QCoreApplication.translate("MainWindow", u"Import Challenges", None))
+        self.studySetupBox.setTitle(QCoreApplication.translate("MainWindow", u"Mission Setup Panel", None))
+        self.budgetL_study.setText(QCoreApplication.translate("MainWindow", u"Budget:", None))
+        self.checkB_study.setText(QCoreApplication.translate("MainWindow", u"Check", None))
+        self.budgetAmountL_study.setText("")
+        self.knobTypeToggleB.setText(QCoreApplication.translate("MainWindow", u"Toggle Knobs", None))
+        self.nextB_study.setText(QCoreApplication.translate("MainWindow", u"Next Challenge", None))
     # retranslateUi
 
