@@ -62,6 +62,13 @@ class Configuration:
     def __init__(self):
         self.knob_settings = []
 
+    def genTmpConfigfromMap(self, config_map):
+        self.knob_settings = []
+        for knob_name, knob_val in config_map.items():
+            k = Knob(knob_name, knob_name, 0.0, 0.0)
+            c = Config(k, knob_val)
+            self.addConfig([c])
+
     def addConfig(self, config):
         """ Add a list of configs
         :param config: A list of Config instances

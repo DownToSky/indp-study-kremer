@@ -666,8 +666,8 @@ class AppMethods():
         :param value: the value in double or string
         """
         filestream.write(configuration.printSelf() + " ")
-        if type(values) is dict:
-            for submetric, value in values.items():
+        if type(values) is list:
+            for value in values:
                 filestream.write(str(value) + " ")
         else:
             filestream.write(str(values))

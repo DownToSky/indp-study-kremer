@@ -1,0 +1,226 @@
+{
+    "challenge_list": [
+        {
+            "budget": 90,
+            "cfg_location": "config.json",
+            "desc": "my description",
+            "id": 0,
+            "knob_type": "virtual",
+            "logs": {
+                "load_time": 1591051466.1530085,
+                "tries": [
+                    {
+                        "budget_percent": 9.8,
+                        "if_success": true,
+                        "knob_info": {
+                            "coverage": 51,
+                            "ranking": 75
+                        },
+                        "knob_type": "virtual",
+                        "quality_percent": 76,
+                        "time": 1591051483.7565389
+                    },
+                    {
+                        "budget_percent": 9.411111111111111,
+                        "if_success": true,
+                        "knob_info": {
+                            "knob1": 67,
+                            "knob2": 67
+                        },
+                        "knob_type": "concrete",
+                        "quality_percent": 100,
+                        "time": 1591051526.847647
+                    },
+                    {
+                        "budget_percent": 9.11111111111111,
+                        "if_success": true,
+                        "knob_info": {
+                            "coverage": 17,
+                            "ranking": 43
+                        },
+                        "knob_type": "virtual",
+                        "quality_percent": 73,
+                        "time": 1591051537.575644
+                    }
+                ]
+            },
+            "name": "ferret",
+            "sub-metric": "ranking",
+            "target": 90
+        },
+        {
+            "budget": 70,
+            "cfg_location": "config.json",
+            "desc": "my description",
+            "id": 1,
+            "knob_type": "virtual",
+            "logs": {
+                "load_time": 1591051566.7961314,
+                "tries": []
+            },
+            "name": "ferret",
+            "sub-metric": "coverage",
+            "target": 80
+        },
+        {
+            "budget": 90,
+            "cfg_location": "config.json",
+            "desc": "my description",
+            "id": 2,
+            "knob_type": "concrete",
+            "logs": {
+                "load_time": 1591051569.38809,
+                "tries": []
+            },
+            "name": "ferret",
+            "sub-metric": "ranking",
+            "target": 80
+        },
+        {
+            "budget": 90,
+            "cfg_location": "config.json",
+            "desc": "my description",
+            "id": 3,
+            "knob_type": "concrete",
+            "logs": {
+                "load_time": 1591051570.1921375,
+                "tries": []
+            },
+            "name": "ferret",
+            "sub-metric": "ranking",
+            "target": 75
+        },
+        {
+            "budget": 90,
+            "cfg_location": "config.json",
+            "desc": "my description",
+            "id": 4,
+            "knob_type": "virtual",
+            "logs": {
+                "load_time": 1591051571.440112,
+                "tries": [
+                    {
+                        "budget_percent": 2.9,
+                        "if_success": true,
+                        "knob_info": {
+                            "coverage": 1,
+                            "ranking": 1
+                        },
+                        "knob_type": "virtual",
+                        "quality_percent": 95,
+                        "time": 1591051589.380626
+                    }
+                ]
+            },
+            "name": "ferret",
+            "sub-metric": "coverage",
+            "target": 80
+        },
+        {
+            "budget": 90,
+            "cfg_location": "config.json",
+            "desc": "my description",
+            "id": 5,
+            "knob_type": "concrete",
+            "logs": {
+                "load_time": 1591051593.7371593,
+                "tries": []
+            },
+            "name": "ferret",
+            "sub-metric": "ranking",
+            "target": 60
+        },
+        {
+            "budget": 90,
+            "cfg_location": "config.json",
+            "desc": "my description",
+            "id": 6,
+            "knob_type": "virtual",
+            "logs": {
+                "load_time": 1591051595.3931484,
+                "tries": []
+            },
+            "name": "ferret",
+            "sub-metric": "ranking",
+            "target": 80
+        },
+        {
+            "budget": 90,
+            "cfg_location": "config.json",
+            "desc": "my description",
+            "id": 7,
+            "knob_type": "virtual",
+            "logs": {
+                "load_time": 1591051602.8810997,
+                "tries": []
+            },
+            "name": "ferret",
+            "sub-metric": "ranking",
+            "target": 99
+        },
+        {
+            "budget": 90,
+            "cfg_location": "config.json",
+            "desc": "my description",
+            "id": 8,
+            "knob_type": "virtual",
+            "logs": {
+                "load_time": 1591051603.8996558,
+                "tries": []
+            },
+            "name": "ferret",
+            "sub-metric": "coverage",
+            "target": 80
+        },
+        {
+            "budget": 90,
+            "cfg_location": "config.json",
+            "desc": "my description",
+            "id": 9,
+            "knob_type": "concrete",
+            "logs": {
+                "load_time": 1591051604.6926317,
+                "tries": [
+                    {
+                        "budget_percent": 7.444444444444445,
+                        "if_success": true,
+                        "knob_info": {
+                            "knob1": 1,
+                            "knob2": 1
+                        },
+                        "knob_type": "concrete",
+                        "quality_percent": 18,
+                        "time": 1591051607.3076446
+                    },
+                    {
+                        "budget_percent": 6.622222222222222,
+                        "if_success": true,
+                        "knob_info": {
+                            "knob1": 65,
+                            "knob2": 60
+                        },
+                        "knob_type": "concrete",
+                        "quality_percent": 56,
+                        "time": 1591051610.4157288
+                    },
+                    {
+                        "budget_percent": 0.9444444444444444,
+                        "if_success": true,
+                        "knob_info": {
+                            "coverage": 1,
+                            "ranking": 67
+                        },
+                        "knob_type": "virtual",
+                        "quality_percent": 79,
+                        "time": 1591051613.9446452
+                    }
+                ]
+            },
+            "name": "ferret",
+            "sub-metric": "coverage",
+            "target": 70
+        }
+    ],
+    "completion_time": 1591051618.7811182,
+    "overall_desc": "this is the challenge for knob tuning"
+}

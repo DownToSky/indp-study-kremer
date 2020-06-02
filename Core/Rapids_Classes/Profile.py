@@ -14,6 +14,11 @@ class Profile:
         self.mvprofile_table = {}
         self.numOfMVs = 1
 
+    def getCostRange(self):
+        min_c = min(self.profile_table.values())
+        max_c = max(self.profile_table.values())
+        return min_c, max_c
+
     def removeConfig(self, configuration):
         hash_id = self.hashConfig(configuration)
         del self.profile_table[hash_id]
@@ -70,6 +75,8 @@ class Profile:
         :param configuration: the configuration
         :return: a string ID for that configuration
         """
+        if type(configuration) is dict:
+            return self.hashConfigMap(configuration)
         tmp_map = {}
         settings = configuration.retrieve_configs()
         for c in settings:
@@ -84,6 +91,19 @@ class Profile:
         hash_result = hash_result[:-1]
         return hash_result
 
+    def hashConfigMap(self, configMap):
+        """ generate a unique string as ID for a configuration in the form of a map
+        :param configuration: the configuration map
+        :return: a string ID for that configuration
+        """
+        hash_result = ""
+        # sort the map
+        tmp_map_sorted = sorted(configMap)
+        for m in tmp_map_sorted:
+            hash_result += m + "," + str(configMap[m]) + ","
+        hash_result = hash_result[:-1]
+        return hash_result
+
     def setMetrics(self, metrics):
         """ Set the submetrics
         :param metrics: metrics as list
@@ -93,7 +113,18 @@ class Profile:
         for metric in metrics:
             self.metrics[metric] = id
             id+=1
-        self.numOfMVs = len(metrics)
+        self.numOfMVs = len(self.metrics)
+
+    def addMetrics(self, metrics):
+        """ Append the submetrics, might be helpers
+        :param metrics: metrics as list
+        :return: none
+        """
+        cur_total = len(self.metrics)
+        for metric in metrics:
+            self.metrics[metric] = cur_total
+            cur_total+=1
+        self.numOfMVs = len(self.metrics)
 
     def setCost(self, configuration, val):
         """Set the cost of a configuration
@@ -145,7 +176,7 @@ class Profile:
             if mv < best_overall_mv:
                 continue
             best_overall_mv = mv
-            lowest_cost = cost if cost < lowest_cost else lowest_cost
+            lowest_cost = cost
             best_config = hash_config
         # take the sub_metric
         if self.numOfMVs > 1:
@@ -153,7 +184,7 @@ class Profile:
             best_mv = self.mvprofile_table[best_config][metricIndex]
         else:
             best_mv = self.mvprofile_table[best_config]
-        return lowest_cost, best_mv
+        return lowest_cost, best_mv, best_config, self.mvprofile_table[best_config]
 
     def hasEntry(self, configuration):
         """ Check if a configuration is recorded
@@ -168,13 +199,14 @@ class Profile:
         :param outputfile: the path to the output
         """
         output = open(outputfile, 'w')
-        for i in sorted(self.profile_table):
-            output.write(i)
+        tmp = sorted(self.mvprofile_table.items(), key=lambda x: x[1][-1])
+
+        for config in tmp:
+            config = config[0]
+            output.write(config)
             output.write(",")
-            if i in self.profile_table:
-                output.write(str(self.profile_table[i]))
-            if i in self.mvprofile_table:
-                output.write("," + str(self.mvprofile_table[i]))
+            output.write(str(self.profile_table[config]))
+            output.write("," + str(self.mvprofile_table[config]))
             output.write("\n")
         output.close()
 

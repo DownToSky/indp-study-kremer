@@ -1,126 +1,190 @@
 from UI.RAPIDS_mainWindow import Ui_MainWindow
-from Core.Simulater import simulateResult
-import sys
+import sys, pathlib, os
 from PySide2 import QtCore, QtWidgets, QtGui
 from PySide2.QtCore import Qt
 import json
 import time
 import random
-import os
-import pathlib
+from Core.Simulater import simulateResult, ERROR_CODE
 
 
 class UI_Controller(QtWidgets.QMainWindow):
 
-    def __init__ (self):
+    def __init__(self, user_study=False):
+        """
+        Parameters
+        ----------
+        user_study : boolean, optional
+            determins if the class starts in user study mode
+        """
+
+        # Hooking the class to designed template
         super(UI_Controller, self).__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-        icon = QtGui.QIcon("icons8-open-source.svg")
-        self.setWindowIcon(icon)
+
+        # Initial layout values set
+        self.ui.stackedWidget.setCurrentIndex(0)  # Start in production mode
         self.setWindowTitle("RAPIDS")
+        self.configs = None
+
+        # Production:
+        # Connecting the buttons
+        self.ui.studyToggleB_product.clicked.connect(self.studyToggled)
 
         self.configPath = None
-        self.ui.configPathButton.pressed.connect(self.getConfigPath)
+        self.ui.configPathButton.clicked.connect(self.getConfigPath)
 
-        self.ferretPath = None
-        self.ui.ferretPathButton.pressed.connect(self.getFerretPath)
+        self.programPath = None
+        self.ui.programPathButton.clicked.connect(self.getProgramPath)
 
         self.resultPath = None
-        self.ui.resultPathButton.pressed.connect(self.getResultPath)
+        self.ui.resultPathButton.clicked.connect(self.getResultPath)
 
-        self.ui.doneB.pressed.connect(self.saveConfig)
+        self.ui.doneB.clicked.connect(self.saveConfig)
+        self.disabled_unused()  # Temporary production widgets disabled
 
-        self.ui.stackedWidget.setCurrentIndex(0)
-        self.ui.studyToggleB_product.pressed.connect(self.studyToggled)
-        self.ui.studyToggleB_study.pressed.connect(self.productionToggled)
+        # User Study:
+        # Connecting buttons
+        self.ui.studyToggleB_study.clicked.connect(self.productionToggled)
         self.challengePath = None
         self.challenges = None
         self.curr_challenge = None
-        self.ui.challengeImportB.pressed.connect(self.getChallengePath)
+        self.curr_knob_type = None
+        self.ui.challengeImportB.clicked.connect(self.getChallengePath)
 
+        self.ui.checkB_study.clicked.connect(self.check)
+        self.ui.nextB_study.clicked.connect(self.loadNextChallenge)
+        self.ui.knobTypeToggleB.clicked.connect(self.toggleKnobType)
 
-        self.ui.checkB_study.pressed.connect(self.check)
+        if user_study:
+            self.setUserstudy()
 
-        self.ui.nextB_study.pressed.connect(self.nextStudy)
-
-        self.knobs = list()
-        self.knobLabels = list()
-        self.submatrixLabels = list()
-
-        self.disabled_unused()
-
-        self.configs = None
-        self.__set_root_dir();
+        self.__set_root_dir()
 
     def __set_root_dir(self):
         # set the current path
         current_dir = str(pathlib.Path().absolute())
         os.environ["RAPIDS_HOME"] = current_dir
 
-    def nextStudy(self):
+    def setUserstudy(self):
+        """
+        Hides certain widgets for user study
+        """
+        self.ui.stackedWidget.setCurrentIndex(1)  # Start in user study mode
+        self.ui.studyToggleB_study.hide()
+        self.ui.knobTypeToggleB.hide()
+        self.ui.budgetL_study.hide()
+        self.ui.budgetAmountL_study.hide()
+
+    def loadNextChallenge(self):
         if self.curr_challenge == None:
             return
-        self.curr_challenge += 1
-        self.loadChallenge()
+        self.loadChallenge(self.curr_challenge["id"] + 1)
 
-
-    def loadChallenge(self):
+    def loadChallenge(self, challange_id):
+        """
+        This function is only called after challenges are loaded.
+        """
         self.ui.studyPage.setDisabled(True)
-        ch_index = self.curr_challenge
-        if ch_index < len(self.challenges["challenge_list"]):
-            self.ui.budgetAmountL_study.setText("{}".format(self.challenges["challenge_list"][ch_index]["budget"]))
-            self.challenges["challenge_list"][ch_index]["logs"] = dict()
-            self.challenges["challenge_list"][ch_index]["logs"]["tries"] = list()
-            self.challenges["challenge_list"][ch_index]["logs"]["load_time"] = time.time()
-            print("{} load time for challenge#{}".format(self.challenges["challenge_list"][ch_index]["logs"]["load_time"], ch_index))
-            challenge = self.challenges["challenge_list"][ch_index]
-            self.configDir = challenge["cfg_location"]
+        total_challenges = len(self.challenges["challenge_list"])
+        if challange_id < total_challenges:
+            self.curr_challenge = self.challenges["challenge_list"][challange_id]
+            self.curr_knob_type = self.curr_challenge["knob_type"]
+            self.ui.budgetAmountL_study.setText("{}".format(self.curr_challenge["budget"]))
+            self.curr_challenge["logs"] = dict()
+            self.curr_challenge["logs"]["tries"] = list()
+            self.curr_challenge["logs"]["load_time"] = time.time()
+            self.configDir = self.curr_challenge["cfg_location"]
             self.loadConfig()
-            self.ui.ChallengeInstructions.setText(challenge["desc"])
-            self.ui.challengeNumL.setText("({} / {})".format(ch_index + 1, len(self.challenges["challenge_list"])))
-            self.ui.appNameL.setText(challenge["name"])
-            self.ui.submetricNameL.setText(challenge["sub-metric"])
-            self.ui.targetNameL.setText(str(challenge["target"]))
+            self.ui.ChallengeInstructions.setText(self.curr_challenge["desc"])
+            self.ui.challengeNumL.setText("({} out of {})".format(challange_id + 1, total_challenges))
+            self.ui.appNameL.setText(self.curr_challenge["name"])
+            self.ui.submetricNameL.setText(self.curr_challenge["sub-metric"])
+            self.ui.targetNameL.setText(str(self.curr_challenge["target"]))
+            self.ui.checkB_study.setDisabled(False)
+            self.ui.nextB_study.setText("Next Challenge")
+            self.ui.nextB_study.setDisabled(False)
+            self.ui.successValL_study.setText("")
+            self.ui.qualityValL_study.setText("")
         else:
             self.ui.budgetAmountL_study.setText("")
             self.challenges["completion_time"] = time.time()
             self.ui.InstructionsTextBrowser.setText("Challenges Finished!")
             self.ui.ChallengeInstructions.setText("")
             self.saveStudyLogs()
+            self.challengePath = None
             self.challenges = None
+            self.curr_knob_type = None
             self.curr_challenge = None
-            for i in reversed(range(len(self.knobs))):
-                self.knobLabels[i].deleteLater()
-                self.knobs[i].deleteLater()
+
+            self.ui.successValL_study.setText("")
+            self.ui.qualityValL_study.setText("")
+
+            self.ui.appNameL.setText("")
+            self.ui.submetricNameL.setText("")
+            self.ui.targetNameL.setText("")
+            self.ui.nextB_study.setText("Done!")
+            self.ui.checkB_study.setDisabled(True)
+            self.ui.nextB_study.setDisabled(True)
+            for i in reversed(range(self.ui.knobNameLayout_study.count())):
+                self.ui.knobNameLayout_study.itemAt(i).widget().deleteLater()
+            for i in reversed(range(self.ui.knobsLayout_study.count())):
+                self.ui.knobsLayout_study.itemAt(i).widget().deleteLater()
+            for i in reversed(range(self.ui.knobValueLayout_study.count())):
+                self.ui.knobValueLayout_study.itemAt(i).widget().deleteLater()
+            for i in reversed(range(self.ui.submetricsResultLayout_study.count())):
+                self.ui.submetricsResultLayout_study.itemAt(i).widget().deleteLater()
 
         self.ui.studyPage.setEnabled(True)
 
     def saveStudyLogs(self):
-        with open("study_logs.json", 'w') as studyFile:
+        with open("study_logs{}.json".format(time.time()), 'w') as studyFile:
             json.dump(self.challenges, studyFile, indent=4, sort_keys=True)
 
     def check(self):
-        ch_index = self.curr_challenge
+        if self.curr_challenge == None:
+            return
+        self.saveConfig()
         tryInfo = dict()
         tryInfo["time"] = time.time()
-        tryInfo["knob_info"] = dict(zip([knob_name.objectName() for knob_name in self.knobs], [knob_val.value() for knob_val in self.knobs]))
-        self.saveConfig()
-        quality, budget_utilizaiton = simulateResult(self.challenges["challenge_list"][ch_index]["cfg_location"], self.challenges["challenge_list"][ch_index]["budget"], self.challenges["challenge_list"][ch_index]["sub-metric"], tryInfo["knob_info"])
-        self.ui.budgetUtilValL_2.setText("{}%".format(budget_utilizaiton))
-        self.ui.qualityValL_2.setText("{}%".format(quality))
+        tryInfo["knob_type"] = self.curr_knob_type
+        knob_names = [self.ui.knobsLayout_study.itemAt(i).widget().objectName() for i in
+                      range(self.ui.knobsLayout_study.count())]
+        knob_values = [self.ui.knobsLayout_study.itemAt(i).widget().value() for i in
+                       range(self.ui.knobsLayout_study.count())]
+        tryInfo["knob_info"] = dict(zip(knob_names, knob_values))
+
+        quality, budget_utilizaiton, status = simulateResult(self.curr_challenge)
+        if status == ERROR_CODE.SUCCESS:
+            self.ui.successValL_study.setText("Success!")
+            self.ui.successValL_study.setStyleSheet("color: green;")
+            tryInfo["if_success"] = True
+        elif status == ERROR_CODE.TARGET_NOT_REACHED:
+            self.ui.successValL_study.setText("Target Not Reached!")
+            self.ui.successValL_study.setStyleSheet("color: yellow;")
+            tryInfo["if_success"] = False
+        elif status == ERROR_CODE.INVALID:
+            self.ui.successValL_study.setText("Configuration Not Valid!")
+            self.ui.successValL_study.setStyleSheet("color: red;")
+            tryInfo["if_success"] = False
+        elif status == ERROR_CODE.OVER_BUDGET:
+            self.ui.successValL_study.setText("Over the Budget!")
+            self.ui.successValL_study.setStyleSheet("color: red;")
+            tryInfo["if_success"] = False
+        self.ui.budgetUtilValL.setText("{}".format(budget_utilizaiton))
+        self.ui.qualityValL_study.setText("{}".format(quality))
         tryInfo["quality_percent"] = quality
         tryInfo["budget_percent"] = budget_utilizaiton
-        self.challenges["challenge_list"][ch_index]["logs"]["tries"].append(tryInfo)
+        self.curr_challenge["logs"]["tries"].append(tryInfo)
 
     def simulateRandomResult(self, knobDict, budget):
-        return random.randint(1,100), random.randint(1, 1000)/budget
+        return random.randint(1, 100), random.randint(1, 1000) / budget, True
 
     def getChallengePath(self):
         path = QtWidgets.QFileDialog.getOpenFileName()
 
-        print("challenges path: " + str(path))
-        if path[0] != "" or path[0] != None:
+        if path[0] != None and path[0].strip() != '':
             self.challengePath = path[0]
             self.initChallenges()
         else:
@@ -132,11 +196,16 @@ class UI_Controller(QtWidgets.QMainWindow):
         with open(self.challengePath, 'r') as chFile:
             self.challenges = json.load(chFile)
             self.ui.InstructionsTextBrowser.setText(self.challenges["overall_desc"])
-            self.curr_challenge = 0
-            self.loadChallenge()
-    
+            self.loadChallenge(0)
+
     def toggleKnobType(self):
-        pass
+        if self.curr_knob_type == None:
+            return
+        elif self.curr_knob_type == "virtual":
+            self.curr_knob_type = "concrete"
+        else:
+            self.curr_knob_type = "virtual"
+        self.loadKnobs()
 
     def studyToggled(self):
         self.ui.stackedWidget.setCurrentIndex(1)
@@ -149,10 +218,14 @@ class UI_Controller(QtWidgets.QMainWindow):
             print("load configs first!")
             return
         knob_name = self.sender().objectName()
-        knob_type = self.challenges["challenge_list"][self.curr_challenge]["knob_type"]
+        knob_type = self.curr_knob_type
         self.configs[knob_type][knob_name] = self.sender().value()
-        print("{} change to {}".format(knob_name, self.sender().value()))
-
+        knobValueLabel = None
+        for i in range(self.ui.knobValueLayout_study.count()):
+            if self.ui.knobValueLayout_study.itemAt(i).widget().objectName() == knob_name:
+                knobValueLabel = self.ui.knobValueLayout_study.itemAt(i).widget()
+        assert knobValueLabel != None, "knob value label with proper object file not found"
+        knobValueLabel.setText(str(self.sender().value()))
 
     def saveConfig(self):
         if self.configs == None:
@@ -160,44 +233,53 @@ class UI_Controller(QtWidgets.QMainWindow):
             return
 
         with open(self.configDir, 'w') as confFile:
-            json.dump(self.configs, confFile, indent=4)
+            json.dump(self.configs, confFile)
 
     def loadKnobs(self):
-        if self.challenges["challenge_list"][self.curr_challenge]["knob_type"] not in self.configs:
-            return
         MIN_VAL = 1
         MAX_VAL = 100
-        for i in reversed(range(len(self.knobs))):
-            self.knobLabels[i].deleteLater()
-            self.knobs[i].deleteLater()
-        self.knobLabels = list()
-        self.knobs = list()
-        for i, knob_name in enumerate(self.configs[self.challenges["challenge_list"][self.curr_challenge]["knob_type"]]):
-            print(knob_name)
+        for i in reversed(range(self.ui.knobNameLayout_study.count())):
+            self.ui.knobNameLayout_study.itemAt(i).widget().deleteLater()
+        for i in reversed(range(self.ui.knobsLayout_study.count())):
+            self.ui.knobsLayout_study.itemAt(i).widget().deleteLater()
+        for i in reversed(range(self.ui.knobValueLayout_study.count())):
+            self.ui.knobValueLayout_study.itemAt(i).widget().deleteLater()
+        for i in reversed(range(self.ui.submetricsResultLayout_study.count())):
+            self.ui.submetricsResultLayout_study.itemAt(i).widget().deleteLater()
+        for knob_name in self.configs[self.curr_knob_type]:
             # Labels showing which knob is which prefrence
-            self.knobLabels.append(QtWidgets.QLabel())
-            self.knobLabels[i].setText(knob_name)
-            self.knobLabels[i].setAlignment(Qt.AlignCenter|Qt.AlignBottom)
+            knobLabel = QtWidgets.QLabel()
+            knobLabel.setObjectName(knob_name)  # used to get the object later
+            knobLabel.setText(knob_name)
+            knobLabel.setAlignment(Qt.AlignCenter | Qt.AlignBottom)
 
-            self.knobs.append(QtWidgets.QDial())
-            self.knobs[i].setObjectName(knob_name)   #used to get the object later
-            self.knobs[i].setMaximum(MAX_VAL)
-            self.knobs[i].setMinimum(MIN_VAL)
-            value_in_config = self.configs[self.challenges["challenge_list"][self.curr_challenge]["knob_type"]][knob_name]
+            knob = QtWidgets.QDial()
+            knob.setObjectName(knob_name)  # used to get the object later
+            knob.setMaximum(MAX_VAL)
+            knob.setMinimum(MIN_VAL)
+            value_in_config = self.configs[self.curr_knob_type][knob_name]
+            knobValueLabel = QtWidgets.QLabel()
+            knobValueLabel.setObjectName(knob_name)  # used to get the object later
+            knobValueLabel.setAlignment(Qt.AlignCenter | Qt.AlignBottom)
             if value_in_config > MAX_VAL:
-                self.knobs[i].setValue(MAX_VAL)
+                knob.setValue(MAX_VAL)
+                knobValueLabel.setText(str(MAX_VAL))
             elif value_in_config < MIN_VAL:
-                self.knobs[i].setValue(MIN_VAL)
+                knob.setValue(MIN_VAL)
+                knobValueLabel.setText(str(MIN_VAL))
             else:
-                self.knobs[i].setValue(value_in_config)
-            
-            self.knobs[i].valueChanged.connect(self.updatePrefrences)
+                knob.setValue(value_in_config)
+                knobValueLabel.setText(str(value_in_config))
 
-            self.ui.knobNameLayout_study.addWidget(self.knobLabels[i])
-            self.ui.knobsLayout_study.addWidget(self.knobs[i])
+            knob.valueChanged.connect(self.updatePrefrences)
 
-            self.knobLabels[i].show()
-            self.knobs[i].show()
+            self.ui.knobNameLayout_study.addWidget(knobLabel)
+            self.ui.knobsLayout_study.addWidget(knob)
+            self.ui.knobValueLayout_study.addWidget(knobValueLabel)
+
+            knobLabel.show()
+            knob.show()
+            knobValueLabel.show()
 
     def disabled_unused(self):
         self.ui.retrainButton.setDisabled(True)
@@ -209,16 +291,16 @@ class UI_Controller(QtWidgets.QMainWindow):
     def loadConfig(self):
         with open(self.configDir, 'r') as confFile:
             self.configs = json.load(confFile)
-            budget = str(self.configs["mission"]["budget"])
-            self.ui.budgetShortText.setText(budget)
+            budget = self.configs["mission"]["budget"]
+            self.ui.budgetShortText.setText(str(budget))
             self.loadKnobs()
 
     # TODO: makesure the returned path is nonempty
-    def getFerretPath(self):
+    def getProgramPath(self):
         path = QtWidgets.QFileDialog.getExistingDirectory()
 
         print("ferret directory: " + str(path))
-        self.ferretPath = path
+        self.programPath = path
 
     # TODO: makesure the returned path is nonempty
     def getConfigPath(self):
@@ -231,7 +313,6 @@ class UI_Controller(QtWidgets.QMainWindow):
         else:
             self.configDir = None
 
-
     # TODO: makesure the returned path is nonempty
     def getResultPath(self):
         path = QtWidgets.QFileDialog.getSaveFileName()
@@ -240,14 +321,12 @@ class UI_Controller(QtWidgets.QMainWindow):
         self.resultPath = path[0]
 
 
-
-
-
-
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
-
-    window = UI_Controller()
+    user_study = True
+    if "--user-study" in sys.argv:
+        user_study = True
+    window = UI_Controller(user_study=user_study)
     window.show()
 
     sys.exit(app.exec_())

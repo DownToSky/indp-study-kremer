@@ -5,6 +5,7 @@ This is an example file for prepraing ferret for RAPID(C)
 from Core.AppMets.AppMethods import AppMethods
 import os
 
+
 class appMethods(AppMethods):
     database_path = "/home/liuliu/Research/mara_bench/parsec_rapid/pkgs/apps" \
                     "/ferret/run/corelnative/"
@@ -13,6 +14,7 @@ class appMethods(AppMethods):
                  "/ferret/run/queries50"
     fullrun_query_path = "/home/liuliu/Research/mara_bench/parsec_rapid/pkgs" \
                          "/apps/ferret/run/queries1000"
+    NORMALIZER = 0.7863
 
     def __init__(self, name, obj_path):
         """ Initialization with app name
@@ -38,7 +40,7 @@ class appMethods(AppMethods):
             for config in configs:
                 name = config.knob.set_name
                 if name == "hash":
-                    hash = pow(2,config.val)  # retrieve the setting for each knob
+                    hash = pow(2, config.val)  # retrieve the setting for each knob
                 elif name == "probe":
                     probe = config.val  # retrieve the setting for each knob
                 elif name == "itr":
@@ -68,7 +70,7 @@ class appMethods(AppMethods):
             "1",
             self.run_dir + "output.txt",
             "-rsdg",
-            self.run_config  #,'1>/dev/null'
+            self.run_config  # ,'1>/dev/null'
         ]
         return cmd
 
@@ -84,7 +86,7 @@ class appMethods(AppMethods):
             for config in configs:
                 name = config.knob.set_name
                 if name == "hash":
-                    hash = pow(2,config.val)  # retrieve the setting for each knob
+                    hash = pow(2, config.val)  # retrieve the setting for each knob
                 elif name == "probe":
                     probe = config.val  # retrieve the setting for each knob
                 elif name == "itr":
@@ -103,16 +105,13 @@ class appMethods(AppMethods):
 
     def computeQoSWeight(self, preferences, values):
         # preferences is the preferecne and values contains the raw mv weight
-        ranking = values["ranking"]
-        coverage = values["coverage"]
-        ranking_pref = preferences["ranking"]
-        coverage_pref = preferences["coverage"]
-        maxError = (2 * coverage_pref + ranking_pref) * 50 * 51
-        # 50 images in real run
-        ranking_res = (1.0 +
-                       (ranking_pref * ranking + 2 * coverage_pref * coverage)
-                       / float(maxError)) * 100.0
-        print(ranking_res)
+        ranking = float(values["ranking"])
+        coverage = float(values["coverage"])
+        #sub_3 = float(values["_sub3"])
+        ranking_pref = float(preferences["ranking"])
+        coverage_pref = float(preferences["coverage"])
+        #ranking_res = -1.5 + 2.0 * coverage_pref * coverage + ranking_pref * ranking / 2.0 + sub_3 / (50*51)
+        ranking_res = (0.8*coverage * coverage_pref + ranking_pref * ranking)/(ranking_pref+coverage_pref)*1.8 - 0.8
         return ranking_res
 
     def rank(self, img, imglist):
@@ -153,7 +152,7 @@ class appMethods(AppMethods):
             truthmap[name] = []
             for i in range(1, len(col)):  # 50 results
                 truthmap[name].append(col[i].split(':')[0])
-        #if len(missionmap) != len(truthmap):
+        # if len(missionmap) != len(truthmap):
         # mission failed in between
         #    print(len(missionmap), len(truthmap))
         #    return [0.0, 0.0, 0.0]
@@ -183,13 +182,14 @@ class appMethods(AppMethods):
                     S.remove(s)
                 # now that Z, S, and T are set, compute the ranking function
                 # two Sub QoS
-                coverage = -1 * (len(truth_res) - len(Z)) * (len(truth_res) +
-                                                             1)
-                ranking = -1 * (self.compute2(truth_res, mission_res, Z) -
-                                self.compute1(truth_res, S) -
-                                self.compute1(mission_res, T))
-                ranking_res = (
-                    1.0 + (2 * coverage + ranking) / float(maxError)) * 100.0
+                addant_1 = 2 * (len(truth_res) - len(Z)) * (len(truth_res) + 1) / float(maxError)
+                addant_2 = (self.compute2(truth_res, mission_res, Z) - self.compute1(truth_res, S) - self.compute1(
+                    mission_res, T)) / float(maxError)
+                coverage = 1 - addant_1 / 2
+                ranking = (2 + addant_2) / 2
+                ranking_res = (1 - addant_1 - addant_2) * 100.0
+                ranking_cal = (1 - (2 - 2 * coverage) - (2 * ranking - 2)) * 100.0
+                assert (ranking_res == ranking_cal), "miscalculated"
             except:
                 ranking_res = 0.0
                 ranking = 0.0

@@ -27,7 +27,7 @@ def genTrainingSet(cfg_file, granularity=10):
         else:
             invalid += 1
         flatted_blackbox_training.addCostEntry(configuration, 0.0)
-    print("RAPID-C / STAGE-1 : ommited in total " + str(invalid) + " settings")
+    print("total: " + str(len(flatted)) + " omitted:" + str(invalid) + " / final:" + str(len(flatted) - invalid))
     # prepare a Knobs
     knobs_class = Knobs()
     for k in knobs:
@@ -43,7 +43,7 @@ def processFile(cfg_file):
     subs = []
     for line in cfg_file:
         col = line.split(' ')
-        if col[0] == "submetrics:": # sub metrics
+        if col[0] == "submetrics:":  # sub metrics
             subs = col[1].split(',')
         if len(col) == 4:  # knob definition
             knob_name = col[0]
@@ -106,23 +106,23 @@ def genAllTraining(knobs, granularity):
         v_min = int(knob.min)
         v_max = int(knob.max)
         # if less than 'granularity', select all
-        knob_vs = np.linspace(v_min,v_max,num=min(granularity,(v_max-v_min+1)))
-        #step = (max - min) / (granularity-1.0)
-        #if step < 1:
+        knob_vs = np.linspace(v_min, v_max, num=min(granularity, (v_max - v_min + 1)))
+        # step = (max - min) / (granularity-1.0)
+        # if step < 1:
         #    step = 1
         # print "step size for "+name + "is " + str(step)
-        #knob_samples[name] = []
-        #i = min
-        #single_set.append(Config(knob, int(i)))
-        #knob_samples[name].append(int(i))
+        # knob_samples[name] = []
+        # i = min
+        # single_set.append(Config(knob, int(i)))
+        # knob_samples[name].append(int(i))
         # while i < max:
         #     i = i + step
         #     if i + step > max:
         #         i = max
         #     single_set.append(Config(knob, int(i)))
         #     knob_samples[name].append(int(i))
-        knob_samples[name]=list(map(lambda x: int(x),knob_vs))
-        single_set = list(map(lambda x: Config(knob,int(x)),knob_vs))
+        knob_samples[name] = list(map(lambda x: int(x), knob_vs))
+        single_set = list(map(lambda x: Config(knob, int(x)), knob_vs))
         frozen_single = frozenset(single_set)
         final_sets.add(frozen_single)
     product = crossproduct(final_sets)
@@ -206,6 +206,7 @@ def beautifyAndWriteOut(empty_profile, outfile):
         outfile.write(o)
         outfile.write("\n")
 
+
 def is_float(str):
     try:
         float(str)
@@ -245,19 +246,20 @@ def readFact(fact_file, knobs, gt, COST=True):
                 is_digit = False
                 knob_name = col[i]
         if not gt.hasEntry(configuration):
-            print
-            "cant find key:" + knob_name + str(knob_val)
+            continue
         if COST:
             gt.setCost(configuration, float(vals[0]))
         else:
             gt.setMV(configuration, list(map(lambda x: float(x), vals)))
-    print
-    "RAPID-C / STAGE-4 : trained profile constructed"
+    if COST:
+        print("Cost file loaded, total:" + str(len(gt.configurations)))
+    else:
+        print("MV file loaded, total:" + str(len(gt.configurations)))
     return
 
 
 def getAbsPath(path):
-    if path[0] == '/': # this is an absolute path
+    if path[0] == '/':  # this is an absolute path
         return path
     RAPIDS_HOME = os.environ["RAPIDS_HOME"]
     return RAPIDS_HOME + "/" + path
