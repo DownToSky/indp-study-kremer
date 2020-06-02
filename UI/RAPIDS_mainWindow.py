@@ -884,12 +884,21 @@ class Ui_MainWindow(object):
 
         self.qualityL_study = QLabel(self.resultBox_study)
         self.qualityL_study.setObjectName(u"qualityL_study")
+        font1 = QFont()
+        font1.setPointSize(12)
+        self.qualityL_study.setFont(font1)
         self.qualityL_study.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout_5.addWidget(self.qualityL_study)
 
         self.qualityValL_study = QLabel(self.resultBox_study)
         self.qualityValL_study.setObjectName(u"qualityValL_study")
+        font2 = QFont()
+        font2.setPointSize(12)
+        font2.setBold(False)
+        font2.setItalic(False)
+        font2.setWeight(50)
+        self.qualityValL_study.setFont(font2)
         self.qualityValL_study.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout_5.addWidget(self.qualityValL_study)
@@ -1072,7 +1081,7 @@ class Ui_MainWindow(object):
         self.resultBox_study.setTitle(QCoreApplication.translate("MainWindow", u"Result Summary Panel", None))
         self.successL_study.setText(QCoreApplication.translate("MainWindow", u"Sucess / Fail:", None))
         self.successValL_study.setText("")
-        self.qualityL_study.setText(QCoreApplication.translate("MainWindow", u"Target Submetric:", None))
+        self.qualityL_study.setText(QCoreApplication.translate("MainWindow", u"Target Sub-metric:", None))
         self.qualityValL_study.setText("")
         self.submetricsL_study.setText(QCoreApplication.translate("MainWindow", u"Sub-metrics:", None))
         self.studyToggleB_study.setText(QCoreApplication.translate("MainWindow", u"Switch to Production Mode", None))

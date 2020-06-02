@@ -71,8 +71,8 @@ class UI_Controller(QtWidgets.QMainWindow):
         self.ui.stackedWidget.setCurrentIndex(1)    # Start in user study mode
         self.ui.studyToggleB_study.hide()
         self.ui.knobTypeToggleB.hide()
-        self.ui.budgetL_study.hide()
-        self.ui.budgetAmountL_study.hide()
+        #self.ui.budgetL_study.hide()
+        #self.ui.budgetAmountL_study.hide()
 
 
     def loadNextChallenge(self):
@@ -105,6 +105,7 @@ class UI_Controller(QtWidgets.QMainWindow):
             self.ui.checkB_study.setDisabled(False)
             self.ui.nextB_study.setText("Next Challenge")
             self.ui.nextB_study.setDisabled(False)
+            self.ui.budgetAmountL_study.setText(str(self.curr_challenge["budget"]))
             self.ui.successValL_study.setText("")
             self.ui.qualityValL_study.setText("")
         else:
@@ -120,6 +121,7 @@ class UI_Controller(QtWidgets.QMainWindow):
 
             self.ui.successValL_study.setText("")
             self.ui.qualityValL_study.setText("")
+            self.ui.budgetAmountL_study.setText("")
 
             self.ui.appNameL.setText("")
             self.ui.submetricNameL.setText("")
@@ -214,7 +216,7 @@ class UI_Controller(QtWidgets.QMainWindow):
             if self.ui.knobValueLayout_study.itemAt(i).widget().objectName() == knob_name:
                 knobValueLabel = self.ui.knobValueLayout_study.itemAt(i).widget()
         assert knobValueLabel != None, "knob value label with proper object file not found"
-        knobValueLabel.setText(str(self.sender().value()))
+        knobValueLabel.setText(str(self.sender().value()) + "%")
 
 
     def saveConfig(self):
@@ -253,13 +255,13 @@ class UI_Controller(QtWidgets.QMainWindow):
             knobValueLabel.setAlignment(Qt.AlignCenter|Qt.AlignBottom)
             if value_in_config > MAX_VAL:
                 knob.setValue(MAX_VAL)
-                knobValueLabel.setText(str(MAX_VAL))
+                knobValueLabel.setText(str(MAX_VAL) + "%")
             elif value_in_config < MIN_VAL:
                 knob.setValue(MIN_VAL)
-                knobValueLabel.setText(str(MIN_VAL))
+                knobValueLabel.setText(str(MIN_VAL) + "%")
             else:
                 knob.setValue(value_in_config)
-                knobValueLabel.setText(str(value_in_config))
+                knobValueLabel.setText(str(int(value_in_config)) + "%")
             
             knob.valueChanged.connect(self.updatePrefrences)
 
