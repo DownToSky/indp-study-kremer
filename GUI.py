@@ -108,12 +108,6 @@ class UI_Controller(QtWidgets.QMainWindow):
             self.ui.nextB_study.setDisabled(False)
             self.ui.successValL_study.setText("")
             self.ui.qualityValL_study.setText("")
-            # reset all knob values to random
-            type = self.curr_challenge["knob_type"]
-            for k,v in self.configs[type].items():
-                self.configs[type][k] = random.randint(1, 101)
-                print(self.configs[type][k])
-            self.loadKnobs()
         else:
             self.ui.budgetAmountL_study.setText("")
             self.challenges["completion_time"] = time.time()

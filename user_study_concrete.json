@@ -47,7 +47,7 @@
       "budget": 60,
       "knob_type": "concrete",
       "sub-metric": "coverage",
-      "target": 0.6988,
+      "target": 0.7,
       "id": 4,
       "desc": "Nice job, 2 more to go"
     },
