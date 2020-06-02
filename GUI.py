@@ -10,7 +10,7 @@ from Core.Simulater import simulateResult, ERROR_CODE
 
 class UI_Controller(QtWidgets.QMainWindow):
 
-    def __init__(self, user_study=False):
+    def __init__(self, user_study=False, sub_dir="./"):
         """
         Parameters
         ----------
@@ -61,6 +61,7 @@ class UI_Controller(QtWidgets.QMainWindow):
             self.setUserstudy()
 
         self.__set_root_dir()
+        self.sub_dir = sub_dir
 
     def __set_root_dir(self):
         # set the current path
@@ -107,6 +108,12 @@ class UI_Controller(QtWidgets.QMainWindow):
             self.ui.nextB_study.setDisabled(False)
             self.ui.successValL_study.setText("")
             self.ui.qualityValL_study.setText("")
+            # reset all knob values to random
+            type = self.curr_challenge["knob_type"]
+            for k,v in self.configs[type].items():
+                self.configs[type][k] = random.randint(1, 101)
+                print(self.configs[type][k])
+            self.loadKnobs()
         else:
             self.ui.budgetAmountL_study.setText("")
             self.challenges["completion_time"] = time.time()
@@ -139,13 +146,16 @@ class UI_Controller(QtWidgets.QMainWindow):
         self.ui.studyPage.setEnabled(True)
 
     def saveStudyLogs(self):
-        with open("study_logs{}.json".format(time.time()), 'w') as studyFile:
+        # create sub_dir
+        subdir = "./Result/"+self.sub_dir
+        if not os.path.exists(subdir):
+            os.makedirs(subdir)
+        with open(subdir+"/study_logs_{}.json".format(self.curr_knob_type), 'w') as studyFile:
             json.dump(self.challenges, studyFile, indent=4, sort_keys=True)
 
     def check(self):
         if self.curr_challenge == None:
             return
-        self.saveConfig()
         tryInfo = dict()
         tryInfo["time"] = time.time()
         tryInfo["knob_type"] = self.curr_knob_type
@@ -155,7 +165,7 @@ class UI_Controller(QtWidgets.QMainWindow):
                        range(self.ui.knobsLayout_study.count())]
         tryInfo["knob_info"] = dict(zip(knob_names, knob_values))
 
-        quality, budget_utilizaiton, status = simulateResult(self.curr_challenge)
+        quality, budget_utilizaiton, status = simulateResult(self.curr_challenge, self.configs[self.curr_knob_type])
         if status == ERROR_CODE.SUCCESS:
             self.ui.successValL_study.setText("Success!")
             self.ui.successValL_study.setStyleSheet("color: green;")
@@ -323,10 +333,17 @@ class UI_Controller(QtWidgets.QMainWindow):
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
-    user_study = True
-    if "--user-study" in sys.argv:
-        user_study = True
-    window = UI_Controller(user_study=user_study)
+    user_study = False
+    argv = list(reversed(sys.argv))
+    user = ""
+    while len(argv) > 0:
+        arg = argv.pop()
+        if arg == "--user-study":
+            user_study = True
+        elif arg == "--user":
+            user = argv.pop()
+
+    window = UI_Controller(user_study=user_study, sub_dir=user)
     window.show()
 
     sys.exit(app.exec_())

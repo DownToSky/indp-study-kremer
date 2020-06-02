@@ -17,7 +17,7 @@ class ERROR_CODE(Enum):
     INVALID = 2
     TARGET_NOT_REACHED = 4
 
-def simulateResult(challenge):
+def simulateResult(challenge, preferences):
     configPath = challenge["cfg_location"]
     budget = challenge['budget']
     targetMetric = challenge["sub-metric"]
@@ -28,8 +28,6 @@ def simulateResult(challenge):
     with open(configPath) as configJson:
         config = json.load(configJson)
         app_name = config['basic']['app_name']
-        field = "virtual" if isVirtual else "concrete"
-        preferences = config[field]
         desc = RAPIDS_HOME + "/" + config['desc']
 
         # load in app met

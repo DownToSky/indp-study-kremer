@@ -3,7 +3,7 @@
   "challenge_list": [
     {
       "name": "ferret",
-      "cfg_location": "./data/configs/ferret/config.json",
+      "cfg_location": "Data/configs/ferret/config.json",
       "budget": 65,
       "knob_type": "concrete",
       "sub-metric": "ranking",
@@ -13,7 +13,7 @@
     },
     {
       "name": "ferret",
-      "cfg_location": "./data/configs/ferret/config.json",
+      "cfg_location": "Data/configs/ferret/config.json",
       "budget": 65,
       "knob_type": "concrete",
       "sub-metric": "coverage",
@@ -23,7 +23,7 @@
     },
     {
       "name": "ferret",
-      "cfg_location": "./data/configs/ferret/config.json",
+      "cfg_location": "Data/configs/ferret/config.json",
       "budget": 60,
       "knob_type": "concrete",
       "sub-metric": "ranking",
@@ -33,7 +33,7 @@
     },
     {
       "name": "ferret",
-      "cfg_location": "./data/configs/ferret/config.json",
+      "cfg_location": "Data/configs/ferret/config.json",
       "budget": 60,
       "knob_type": "concrete",
       "sub-metric": "coverage",
@@ -43,7 +43,7 @@
     },
     {
       "name": "ferret",
-      "cfg_location": "./data/configs/ferret/config.json",
+      "cfg_location": "Data/configs/ferret/config.json",
       "budget": 60,
       "knob_type": "concrete",
       "sub-metric": "coverage",
@@ -53,7 +53,7 @@
     },
     {
       "name": "ferret",
-      "cfg_location": "./data/configs/ferret/config.json",
+      "cfg_location": "Data/configs/ferret/config.json",
       "budget": 55,
       "knob_type": "concrete",
       "sub-metric": "ranking",

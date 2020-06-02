@@ -1,9 +1,9 @@
 {
-  "overall_desc": "This is a series of challenges, each with a particular budget and a target sub-metric. Your job is to tune the knobs, to find the right knob settings so that the sub-metric value can be as close as possible to the target",
+  "overall_desc": "This is a series of challenges, each with a particular budget and a target sub-metric. Your job is to tune the knobs, to find the right knob settings so that the sub-metric value can be as close as possible to the target. \n\n*For fairness purposes, the knob values will be reset to a random state at the beginning of each challenge",
   "challenge_list": [
     {
       "name": "ferret",
-      "cfg_location": "./data/configs/ferret/config.json",
+      "cfg_location": "Data/configs/ferret/config.json",
       "budget": 65,
       "knob_type": "virtual",
       "sub-metric": "ranking",
@@ -13,7 +13,7 @@
     },
     {
       "name": "ferret",
-      "cfg_location": "./data/configs/ferret/config.json",
+      "cfg_location": "Data/configs/ferret/config.json",
       "budget": 65,
       "knob_type": "virtual",
       "sub-metric": "coverage",
@@ -23,7 +23,7 @@
     },
     {
       "name": "ferret",
-      "cfg_location": "./data/configs/ferret/config.json",
+      "cfg_location": "Data/configs/ferret/config.json",
       "budget": 60,
       "knob_type": "virtual",
       "sub-metric": "ranking",
@@ -33,7 +33,7 @@
     },
     {
       "name": "ferret",
-      "cfg_location": "./data/configs/ferret/config.json",
+      "cfg_location": "Data/configs/ferret/config.json",
       "budget": 60,
       "knob_type": "virtual",
       "sub-metric": "coverage",
@@ -43,7 +43,7 @@
     },
     {
       "name": "ferret",
-      "cfg_location": "./data/configs/ferret/config.json",
+      "cfg_location": "Data/configs/ferret/config.json",
       "budget": 60,
       "knob_type": "virtual",
       "sub-metric": "coverage",
@@ -53,7 +53,7 @@
     },
     {
       "name": "ferret",
-      "cfg_location": "./data/configs/ferret/config.json",
+      "cfg_location": "Data/configs/ferret/config.json",
       "budget": 55,
       "knob_type": "virtual",
       "sub-metric": "ranking",
