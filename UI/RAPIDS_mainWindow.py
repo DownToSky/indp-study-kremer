@@ -794,6 +794,7 @@ class Ui_MainWindow(object):
 
         self.submetricNameL = QLabel(self.instructionsBox)
         self.submetricNameL.setObjectName(u"submetricNameL")
+        self.submetricNameL.setStyleSheet(u"color: rgb(255, 245, 101);")
 
         self.currChallengeLayout.addWidget(self.submetricNameL, 2, 2, 1, 1)
 
@@ -811,6 +812,7 @@ class Ui_MainWindow(object):
 
         self.targetNameL = QLabel(self.instructionsBox)
         self.targetNameL.setObjectName(u"targetNameL")
+        self.targetNameL.setStyleSheet(u"color: rgb(255, 245, 101);")
 
         self.currChallengeLayout.addWidget(self.targetNameL, 2, 4, 1, 1)
 
@@ -872,20 +874,22 @@ class Ui_MainWindow(object):
         self.verticalLayout_5.setObjectName(u"verticalLayout_5")
         self.successL_study = QLabel(self.resultBox_study)
         self.successL_study.setObjectName(u"successL_study")
+        font1 = QFont()
+        font1.setPointSize(12)
+        self.successL_study.setFont(font1)
         self.successL_study.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout_5.addWidget(self.successL_study)
 
         self.successValL_study = QLabel(self.resultBox_study)
         self.successValL_study.setObjectName(u"successValL_study")
+        self.successValL_study.setFont(font1)
         self.successValL_study.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout_5.addWidget(self.successValL_study)
 
         self.qualityL_study = QLabel(self.resultBox_study)
         self.qualityL_study.setObjectName(u"qualityL_study")
-        font1 = QFont()
-        font1.setPointSize(12)
         self.qualityL_study.setFont(font1)
         self.qualityL_study.setAlignment(Qt.AlignCenter)
 
@@ -1014,7 +1018,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.stackedWidget.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(1)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -1086,7 +1090,7 @@ class Ui_MainWindow(object):
         self.submetricsL_study.setText(QCoreApplication.translate("MainWindow", u"Sub-metrics:", None))
         self.studyToggleB_study.setText(QCoreApplication.translate("MainWindow", u"Switch to Production Mode", None))
         self.challengeImportB.setText(QCoreApplication.translate("MainWindow", u"Import Challenges", None))
-        self.studySetupBox.setTitle(QCoreApplication.translate("MainWindow", u"Mission Setup Panel", None))
+        self.studySetupBox.setTitle(QCoreApplication.translate("MainWindow", u"Preference Panel", None))
         self.budgetL_study.setText(QCoreApplication.translate("MainWindow", u"Budget:", None))
         self.checkB_study.setText(QCoreApplication.translate("MainWindow", u"Check", None))
         self.budgetAmountL_study.setText("")

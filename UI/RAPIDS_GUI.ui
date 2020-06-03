@@ -479,7 +479,7 @@ QCheckBox::indicator:disabled, QRadioButton::indicator:disabled
     <item row="0" column="0">
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="productionPage">
        <layout class="QGridLayout" name="gridLayout_5">
@@ -921,6 +921,9 @@ QCheckBox::indicator:disabled, QRadioButton::indicator:disabled
              </item>
              <item row="2" column="2">
               <widget class="QLabel" name="submetricNameL">
+               <property name="styleSheet">
+                <string notr="true">color: rgb(255, 245, 101);</string>
+               </property>
                <property name="text">
                 <string/>
                </property>
@@ -942,6 +945,9 @@ QCheckBox::indicator:disabled, QRadioButton::indicator:disabled
              </item>
              <item row="2" column="4">
               <widget class="QLabel" name="targetNameL">
+               <property name="styleSheet">
+                <string notr="true">color: rgb(255, 245, 101);</string>
+               </property>
                <property name="text">
                 <string/>
                </property>
@@ -1015,6 +1021,11 @@ QCheckBox::indicator:disabled, QRadioButton::indicator:disabled
           <layout class="QVBoxLayout" name="verticalLayout_5">
            <item>
             <widget class="QLabel" name="successL_study">
+             <property name="font">
+              <font>
+               <pointsize>12</pointsize>
+              </font>
+             </property>
              <property name="text">
               <string>Sucess / Fail:</string>
              </property>
@@ -1025,6 +1036,11 @@ QCheckBox::indicator:disabled, QRadioButton::indicator:disabled
            </item>
            <item>
             <widget class="QLabel" name="successValL_study">
+             <property name="font">
+              <font>
+               <pointsize>12</pointsize>
+              </font>
+             </property>
              <property name="text">
               <string/>
              </property>
@@ -1148,7 +1164,7 @@ QCheckBox::indicator:disabled, QRadioButton::indicator:disabled
         <item row="1" column="1" colspan="2">
          <widget class="QGroupBox" name="studySetupBox">
           <property name="title">
-           <string>Mission Setup Panel</string>
+           <string>Preference Panel</string>
           </property>
           <layout class="QGridLayout" name="gridLayout_6">
            <item row="7" column="0">
