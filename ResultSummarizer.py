@@ -11,6 +11,15 @@ def getUsers():
     # get users
     return list(map(lambda x: str(x).split('/')[1], results))
 
+def filterTries(tries):
+    result = []
+    for t in tries:
+        if t['if_success']==True:
+            result.append(t)
+            return result
+        else:
+            result.append(t)
+    return result
 
 def analyseOneFile(file):
     try:
@@ -22,12 +31,13 @@ def analyseOneFile(file):
             overall_quality_achieved = 0.0
             for c in c_list:
                 target = c['target']
-                tries_per_c = len(c['logs']['tries'])
+                filtered_tries = filterTries(c['logs']['tries'])
+                tries_per_c = len(filtered_tries)
                 if tries_per_c == 0:  # may have missed this
                     continue
                 tries += tries_per_c
-                qualities = list(map(lambda x: x['quality_percent'], c['logs']['tries']))
-                success = True in list(map(lambda x: x['if_success'], c['logs']['tries']))
+                qualities = list(map(lambda x: x['quality_percent'], filtered_tries))
+                success = True in list(map(lambda x: x['if_success'], filtered_tries))
                 if success:
                     successes += 1
                     overall_quality_achieved += 1.0
