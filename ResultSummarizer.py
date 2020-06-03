@@ -1,6 +1,5 @@
 from pathlib import Path
 import json
-import math
 
 BASE_DIR = "./Result"
 NUM_OF_CHALLENGE = 6.0
@@ -32,7 +31,7 @@ def analyseOneFile(file):
                 successes += 1
                 overall_quality_achieved += 1.0
             else:
-                overall_quality_achieved += max(list(map(lambda x: 1.0 - math.abs((x - target) / target), qualities)))
+                overall_quality_achieved += max(list(map(lambda x: 1.0 - abs((x - target) / target), qualities)))
 
         return {'tries': tries / NUM_OF_CHALLENGE, 'success_rate': successes / NUM_OF_CHALLENGE,
                 'quality': overall_quality_achieved / NUM_OF_CHALLENGE}
