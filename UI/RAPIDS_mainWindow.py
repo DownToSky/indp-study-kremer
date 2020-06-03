@@ -1072,7 +1072,7 @@ class Ui_MainWindow(object):
         self.instructionsBox.setTitle(QCoreApplication.translate("MainWindow", u"Instrunctions", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"Current Challenge:", None))
         self.appNameL.setText("")
-        self.submetricL.setText(QCoreApplication.translate("MainWindow", u"Sub-matric", None))
+        self.submetricL.setText(QCoreApplication.translate("MainWindow", u"Sub-metric", None))
         self.appL.setText(QCoreApplication.translate("MainWindow", u"App", None))
         self.submetricNameL.setText("")
         self.targetL.setText(QCoreApplication.translate("MainWindow", u"Target", None))

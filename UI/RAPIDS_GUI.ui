@@ -908,7 +908,7 @@ QCheckBox::indicator:disabled, QRadioButton::indicator:disabled
              <item row="0" column="2">
               <widget class="QLabel" name="submetricL">
                <property name="text">
-                <string>Sub-matric</string>
+                <string>Sub-metric</string>
                </property>
               </widget>
              </item>
