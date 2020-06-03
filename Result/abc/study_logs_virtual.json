@@ -1,0 +1,90 @@
+{
+    "challenge_list": [
+        {
+            "budget": 65,
+            "cfg_location": "./data/configs/ferret/config.json",
+            "desc": "Your target is to tune the two knobs to make sub-metric RANKING as close as possible to 1.354",
+            "id": 0,
+            "knob_type": "virtual",
+            "logs": {
+                "load_time": 1591062397.4569442,
+                "tries": []
+            },
+            "name": "ferret",
+            "sub-metric": "ranking",
+            "target": 1.354
+        },
+        {
+            "budget": 65,
+            "cfg_location": "./data/configs/ferret/config.json",
+            "desc": "Your target is to tune the two knobs to make sub-metric COVERAGE as close as possible to 0.9852",
+            "id": 1,
+            "knob_type": "virtual",
+            "logs": {
+                "load_time": 1591062399.560173,
+                "tries": []
+            },
+            "name": "ferret",
+            "sub-metric": "coverage",
+            "target": 0.9852
+        },
+        {
+            "budget": 60,
+            "cfg_location": "./data/configs/ferret/config.json",
+            "desc": "Remember, you should tune the knob so that the sub-metric does not exceed the target",
+            "id": 2,
+            "knob_type": "virtual",
+            "logs": {
+                "load_time": 1591062399.997544,
+                "tries": []
+            },
+            "name": "ferret",
+            "sub-metric": "ranking",
+            "target": 1.3
+        },
+        {
+            "budget": 60,
+            "cfg_location": "./data/configs/ferret/config.json",
+            "desc": "Similar to the one before, tune it to as close as possible to the target",
+            "id": 3,
+            "knob_type": "virtual",
+            "logs": {
+                "load_time": 1591062400.527494,
+                "tries": []
+            },
+            "name": "ferret",
+            "sub-metric": "coverage",
+            "target": 0.943
+        },
+        {
+            "budget": 60,
+            "cfg_location": "./data/configs/ferret/config.json",
+            "desc": "Nice job, 2 more to go",
+            "id": 4,
+            "knob_type": "virtual",
+            "logs": {
+                "load_time": 1591062401.0293372,
+                "tries": []
+            },
+            "name": "ferret",
+            "sub-metric": "coverage",
+            "target": 0.6988
+        },
+        {
+            "budget": 55,
+            "cfg_location": "./data/configs/ferret/config.json",
+            "desc": "This is your last challenge, finish it and load in the new challenge file",
+            "id": 5,
+            "knob_type": "virtual",
+            "logs": {
+                "load_time": 1591062401.5754619,
+                "tries": []
+            },
+            "name": "ferret",
+            "sub-metric": "ranking",
+            "target": 1.068
+        }
+    ],
+    "completion_time": 1591062402.388763,
+    "overall_desc": "This is a series of challenges, each with a particular budget and a target sub-metric. Your job is to tune the knobs, to find the right knob settings so that the sub-metric value can be as close as possible to the target"
+}
