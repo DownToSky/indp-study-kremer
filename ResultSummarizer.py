@@ -11,15 +11,17 @@ def getUsers():
     # get users
     return list(map(lambda x: str(x).split('/')[1], results))
 
+
 def filterTries(tries):
     result = []
     for t in tries:
-        if t['if_success']==True:
+        if t['if_success'] == True:
             result.append(t)
             return result
         else:
             result.append(t)
     return result
+
 
 def analyseOneFile(file):
     try:
@@ -29,6 +31,7 @@ def analyseOneFile(file):
             tries = 0.0
             successes = 0.0
             overall_quality_achieved = 0.0
+            all_failure = 0.0
             for c in c_list:
                 target = c['target']
                 filtered_tries = filterTries(c['logs']['tries'])
@@ -38,15 +41,17 @@ def analyseOneFile(file):
                 tries += tries_per_c
                 qualities = list(map(lambda x: x['quality_percent'], filtered_tries))
                 success = True in list(map(lambda x: x['if_success'], filtered_tries))
+                all_fail = not (False in list(map(lambda x: x['quality_percent'] == -1, filtered_tries)))
                 if success:
                     successes += 1
                     overall_quality_achieved += 1.0
                 else:
                     overall_quality_achieved += max(
                         list(map(lambda x: 1.0 - abs(((0 if x == -1 else x) - target) / target), qualities)))
-
+                if all_fail:
+                    all_failure += 1
             return {'tries': tries / NUM_OF_CHALLENGE, 'success_rate': successes / NUM_OF_CHALLENGE,
-                    'quality': overall_quality_achieved / NUM_OF_CHALLENGE}
+                    'quality': overall_quality_achieved / NUM_OF_CHALLENGE, "all_fail": all_failure / NUM_OF_CHALLENGE}
     except Exception as e:
         print("fail to parse ", file, str(e))
         return None
