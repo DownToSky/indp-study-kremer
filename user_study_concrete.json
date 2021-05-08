@@ -1,0 +1,66 @@
+{
+  "overall_desc": "This is the same series of challenges. However, you're not provided with the knobs you saw before. Instead, this time, your knob settings will be translated to a specific program configuration (e.g., program variable values). Other than not reaching the target, some settings may violate the budget constraints, or the program constraints (invalid configurations). Try your best to find the knob settings!",
+  "challenge_list": [
+    {
+      "name": "ferret",
+      "cfg_location": "Data/configs/ferret/config.json",
+      "budget": 65,
+      "knob_type": "concrete",
+      "sub-metric": "ranking",
+      "target": 1.354,
+      "id": 0,
+      "desc": "Your target is to tune the two knobs to make sub-metric RANKING as close as possible to 1.354"
+    },
+    {
+      "name": "ferret",
+      "cfg_location": "Data/configs/ferret/config.json",
+      "budget": 65,
+      "knob_type": "concrete",
+      "sub-metric": "coverage",
+      "target": 0.9852,
+      "id": 1,
+      "desc": "Your target is to tune the two knobs to make sub-metric COVERAGE as close as possible to 0.9852"
+    },
+    {
+      "name": "ferret",
+      "cfg_location": "Data/configs/ferret/config.json",
+      "budget": 60,
+      "knob_type": "concrete",
+      "sub-metric": "ranking",
+      "target": 1.300,
+      "id": 2,
+      "desc": "Remember, you should tune the knob so that the sub-metric does not exceed the target"
+    },
+    {
+      "name": "ferret",
+      "cfg_location": "Data/configs/ferret/config.json",
+      "budget": 60,
+      "knob_type": "concrete",
+      "sub-metric": "coverage",
+      "target": 0.943,
+      "id": 3,
+      "desc": "Similar to the one before, tune it to as close as possible to the target"
+    },
+    {
+      "name": "ferret",
+      "cfg_location": "Data/configs/ferret/config.json",
+      "budget": 60,
+      "knob_type": "concrete",
+      "sub-metric": "coverage",
+      "target": 0.7,
+      "id": 4,
+      "desc": "Nice job, 2 more to go"
+    },
+    {
+      "name": "ferret",
+      "cfg_location": "Data/configs/ferret/config.json",
+      "budget": 55,
+      "knob_type": "concrete",
+      "sub-metric": "ranking",
+      "target": 1.068,
+      "id": 5,
+      "desc": "This is your last challenge, finish it and load in the new challenge file"
+    }
+  ]
+}
+
