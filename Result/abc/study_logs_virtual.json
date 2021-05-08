@@ -1,0 +1,272 @@
+{
+    "challenge_list": [
+        {
+            "budget": 65,
+            "cfg_location": "Data/configs/ferret/config.json",
+            "desc": "Your target is to tune the two knobs to make sub-metric RANKING as close as possible to 1.354",
+            "id": 0,
+            "knob_type": "virtual",
+            "logs": {
+                "load_time": 1591218768.4246058,
+                "tries": [
+                    {
+                        "budget_percent": 0.9873023399939904,
+                        "if_success": false,
+                        "knob_info": {
+                            "coverage": 46,
+                            "ranking": 1
+                        },
+                        "knob_type": "virtual",
+                        "quality_percent": 1.0099921568627452,
+                        "time": 1591218769.697553
+                    },
+                    {
+                        "budget_percent": 0.8620715508094201,
+                        "if_success": true,
+                        "knob_info": {
+                            "coverage": 46,
+                            "ranking": 70
+                        },
+                        "knob_type": "virtual",
+                        "quality_percent": 1.3541254901960786,
+                        "time": 1591218770.847583
+                    }
+                ]
+            },
+            "name": "ferret",
+            "sub-metric": "ranking",
+            "target": 1.354
+        },
+        {
+            "budget": 65,
+            "cfg_location": "Data/configs/ferret/config.json",
+            "desc": "Your target is to tune the two knobs to make sub-metric COVERAGE as close as possible to 0.9852",
+            "id": 1,
+            "knob_type": "virtual",
+            "logs": {
+                "load_time": 1591218771.189606,
+                "tries": [
+                    {
+                        "budget_percent": 0.9058204064002404,
+                        "if_success": false,
+                        "knob_info": {
+                            "coverage": 1,
+                            "ranking": 1
+                        },
+                        "knob_type": "virtual",
+                        "quality_percent": 0.6988,
+                        "time": 1591218771.835073
+                    },
+                    {
+                        "budget_percent": 0.9058204064002404,
+                        "if_success": false,
+                        "knob_info": {
+                            "coverage": 1,
+                            "ranking": 1
+                        },
+                        "knob_type": "virtual",
+                        "quality_percent": 0.6988,
+                        "time": 1591218771.9984949
+                    }
+                ]
+            },
+            "name": "ferret",
+            "sub-metric": "coverage",
+            "target": 0.9852
+        },
+        {
+            "budget": 60,
+            "cfg_location": "Data/configs/ferret/config.json",
+            "desc": "Remember, you should tune the knob so that the sub-metric does not exceed the target",
+            "id": 2,
+            "knob_type": "virtual",
+            "logs": {
+                "load_time": 1591218772.296254,
+                "tries": [
+                    {
+                        "budget_percent": 0.9813054402669271,
+                        "if_success": true,
+                        "knob_info": {
+                            "coverage": 1,
+                            "ranking": 1
+                        },
+                        "knob_type": "virtual",
+                        "quality_percent": 1.3008470588235292,
+                        "time": 1591218772.852223
+                    },
+                    {
+                        "budget_percent": 0.9813054402669271,
+                        "if_success": true,
+                        "knob_info": {
+                            "coverage": 1,
+                            "ranking": 1
+                        },
+                        "knob_type": "virtual",
+                        "quality_percent": 1.3008470588235292,
+                        "time": 1591218773.011164
+                    }
+                ]
+            },
+            "name": "ferret",
+            "sub-metric": "ranking",
+            "target": 1.3
+        },
+        {
+            "budget": 60,
+            "cfg_location": "Data/configs/ferret/config.json",
+            "desc": "Similar to the one before, tune it to as close as possible to the target",
+            "id": 3,
+            "knob_type": "virtual",
+            "logs": {
+                "load_time": 1591218773.3393111,
+                "tries": [
+                    {
+                        "budget_percent": 0.9813054402669271,
+                        "if_success": false,
+                        "knob_info": {
+                            "coverage": 1,
+                            "ranking": 1
+                        },
+                        "knob_type": "virtual",
+                        "quality_percent": 0.6988,
+                        "time": 1591218773.6289852
+                    },
+                    {
+                        "budget_percent": 0.9813054402669271,
+                        "if_success": false,
+                        "knob_info": {
+                            "coverage": 1,
+                            "ranking": 1
+                        },
+                        "knob_type": "virtual",
+                        "quality_percent": 0.6988,
+                        "time": 1591218773.798038
+                    },
+                    {
+                        "budget_percent": 0.9813054402669271,
+                        "if_success": false,
+                        "knob_info": {
+                            "coverage": 1,
+                            "ranking": 1
+                        },
+                        "knob_type": "virtual",
+                        "quality_percent": 0.6988,
+                        "time": 1591218773.956897
+                    },
+                    {
+                        "budget_percent": 0.9813054402669271,
+                        "if_success": false,
+                        "knob_info": {
+                            "coverage": 1,
+                            "ranking": 1
+                        },
+                        "knob_type": "virtual",
+                        "quality_percent": 0.6988,
+                        "time": 1591218774.9189398
+                    }
+                ]
+            },
+            "name": "ferret",
+            "sub-metric": "coverage",
+            "target": 0.943
+        },
+        {
+            "budget": 60,
+            "cfg_location": "Data/configs/ferret/config.json",
+            "desc": "Nice job, 2 more to go",
+            "id": 4,
+            "knob_type": "virtual",
+            "logs": {
+                "load_time": 1591218775.292594,
+                "tries": [
+                    {
+                        "budget_percent": 0.9813054402669271,
+                        "if_success": false,
+                        "knob_info": {
+                            "coverage": 1,
+                            "ranking": 1
+                        },
+                        "knob_type": "virtual",
+                        "quality_percent": 0.6988,
+                        "time": 1591218775.921848
+                    },
+                    {
+                        "budget_percent": 0.9813054402669271,
+                        "if_success": false,
+                        "knob_info": {
+                            "coverage": 1,
+                            "ranking": 1
+                        },
+                        "knob_type": "virtual",
+                        "quality_percent": 0.6988,
+                        "time": 1591218776.0773098
+                    },
+                    {
+                        "budget_percent": 0.9813054402669271,
+                        "if_success": false,
+                        "knob_info": {
+                            "coverage": 1,
+                            "ranking": 1
+                        },
+                        "knob_type": "virtual",
+                        "quality_percent": 0.6988,
+                        "time": 1591218776.218274
+                    }
+                ]
+            },
+            "name": "ferret",
+            "sub-metric": "coverage",
+            "target": 0.7
+        },
+        {
+            "budget": 55,
+            "cfg_location": "Data/configs/ferret/config.json",
+            "desc": "This is your last challenge, finish it and load in the new challenge file",
+            "id": 5,
+            "knob_type": "virtual",
+            "logs": {
+                "load_time": 1591218776.514352,
+                "tries": [
+                    {
+                        "budget_percent": 0.8455832221291282,
+                        "if_success": true,
+                        "knob_info": {
+                            "coverage": 1,
+                            "ranking": 1
+                        },
+                        "knob_type": "virtual",
+                        "quality_percent": 1.0687058823529412,
+                        "time": 1591218776.904059
+                    },
+                    {
+                        "budget_percent": 0.8455832221291282,
+                        "if_success": true,
+                        "knob_info": {
+                            "coverage": 1,
+                            "ranking": 1
+                        },
+                        "knob_type": "virtual",
+                        "quality_percent": 1.0687058823529412,
+                        "time": 1591218777.0667388
+                    },
+                    {
+                        "budget_percent": 0.8455832221291282,
+                        "if_success": true,
+                        "knob_info": {
+                            "coverage": 1,
+                            "ranking": 1
+                        },
+                        "knob_type": "virtual",
+                        "quality_percent": 1.0687058823529412,
+                        "time": 1591218777.218254
+                    }
+                ]
+            },
+            "name": "ferret",
+            "sub-metric": "ranking",
+            "target": 1.068
+        }
+    ],
+    "completion_time": 1591218777.8479528,
+    "overall_desc": "This is a series of challenges, each with a particular budget and a target sub-metric. Your job is to tune the knobs, to find the right knob settings so that the sub-metric value can be as close as possible to the target. \n\n*For fairness purposes, the knob values will be reset to a random state at the beginning of each challenge"
+}

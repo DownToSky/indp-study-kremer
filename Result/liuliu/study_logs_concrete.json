@@ -1,0 +1,288 @@
+{
+    "challenge_list": [
+        {
+            "budget": 65,
+            "cfg_location": "Data/configs/ferret/config.json",
+            "desc": "Your target is to tune the two knobs to make sub-metric RANKING as close as possible to 1.354",
+            "id": 0,
+            "knob_type": "concrete",
+            "logs": {
+                "load_time": 1591218729.9710479,
+                "tries": [
+                    {
+                        "budget_percent": 1.0321207780104418,
+                        "if_success": false,
+                        "knob_info": {
+                            "hash": 74,
+                            "itr": 91,
+                            "probe": 62
+                        },
+                        "knob_type": "concrete",
+                        "quality_percent": -1,
+                        "time": 1591218731.046286
+                    },
+                    {
+                        "budget_percent": 1.011236337515024,
+                        "if_success": false,
+                        "knob_info": {
+                            "hash": 74,
+                            "itr": 63,
+                            "probe": 62
+                        },
+                        "knob_type": "concrete",
+                        "quality_percent": -1,
+                        "time": 1591218732.206888
+                    }
+                ]
+            },
+            "name": "ferret",
+            "sub-metric": "ranking",
+            "target": 1.354
+        },
+        {
+            "budget": 65,
+            "cfg_location": "Data/configs/ferret/config.json",
+            "desc": "Your target is to tune the two knobs to make sub-metric COVERAGE as close as possible to 0.9852",
+            "id": 1,
+            "knob_type": "concrete",
+            "logs": {
+                "load_time": 1591218732.555798,
+                "tries": [
+                    {
+                        "budget_percent": 1.011236337515024,
+                        "if_success": false,
+                        "knob_info": {
+                            "hash": 74,
+                            "itr": 68,
+                            "probe": 62
+                        },
+                        "knob_type": "concrete",
+                        "quality_percent": -1,
+                        "time": 1591218733.760261
+                    },
+                    {
+                        "budget_percent": 1.011236337515024,
+                        "if_success": false,
+                        "knob_info": {
+                            "hash": 74,
+                            "itr": 68,
+                            "probe": 62
+                        },
+                        "knob_type": "concrete",
+                        "quality_percent": -1,
+                        "time": 1591218734.529823
+                    },
+                    {
+                        "budget_percent": 1.011236337515024,
+                        "if_success": false,
+                        "knob_info": {
+                            "hash": 74,
+                            "itr": 68,
+                            "probe": 62
+                        },
+                        "knob_type": "concrete",
+                        "quality_percent": -1,
+                        "time": 1591218734.965463
+                    }
+                ]
+            },
+            "name": "ferret",
+            "sub-metric": "coverage",
+            "target": 0.9852
+        },
+        {
+            "budget": 60,
+            "cfg_location": "Data/configs/ferret/config.json",
+            "desc": "Remember, you should tune the knob so that the sub-metric does not exceed the target",
+            "id": 2,
+            "knob_type": "concrete",
+            "logs": {
+                "load_time": 1591218735.3191738,
+                "tries": [
+                    {
+                        "budget_percent": 1.1181308428446453,
+                        "if_success": false,
+                        "knob_info": {
+                            "hash": 74,
+                            "itr": 91,
+                            "probe": 62
+                        },
+                        "knob_type": "concrete",
+                        "quality_percent": -1,
+                        "time": 1591218735.73037
+                    },
+                    {
+                        "budget_percent": 1.1181308428446453,
+                        "if_success": false,
+                        "knob_info": {
+                            "hash": 74,
+                            "itr": 91,
+                            "probe": 62
+                        },
+                        "knob_type": "concrete",
+                        "quality_percent": -1,
+                        "time": 1591218736.0751538
+                    },
+                    {
+                        "budget_percent": 1.1181308428446453,
+                        "if_success": false,
+                        "knob_info": {
+                            "hash": 74,
+                            "itr": 91,
+                            "probe": 62
+                        },
+                        "knob_type": "concrete",
+                        "quality_percent": -1,
+                        "time": 1591218736.460926
+                    }
+                ]
+            },
+            "name": "ferret",
+            "sub-metric": "ranking",
+            "target": 1.3
+        },
+        {
+            "budget": 60,
+            "cfg_location": "Data/configs/ferret/config.json",
+            "desc": "Similar to the one before, tune it to as close as possible to the target",
+            "id": 3,
+            "knob_type": "concrete",
+            "logs": {
+                "load_time": 1591218736.848307,
+                "tries": [
+                    {
+                        "budget_percent": 1.1181308428446453,
+                        "if_success": false,
+                        "knob_info": {
+                            "hash": 74,
+                            "itr": 91,
+                            "probe": 62
+                        },
+                        "knob_type": "concrete",
+                        "quality_percent": -1,
+                        "time": 1591218737.1657898
+                    },
+                    {
+                        "budget_percent": 1.1181308428446453,
+                        "if_success": false,
+                        "knob_info": {
+                            "hash": 74,
+                            "itr": 91,
+                            "probe": 62
+                        },
+                        "knob_type": "concrete",
+                        "quality_percent": -1,
+                        "time": 1591218737.428372
+                    },
+                    {
+                        "budget_percent": 1.1181308428446453,
+                        "if_success": false,
+                        "knob_info": {
+                            "hash": 74,
+                            "itr": 91,
+                            "probe": 62
+                        },
+                        "knob_type": "concrete",
+                        "quality_percent": -1,
+                        "time": 1591218737.8190908
+                    }
+                ]
+            },
+            "name": "ferret",
+            "sub-metric": "coverage",
+            "target": 0.943
+        },
+        {
+            "budget": 60,
+            "cfg_location": "Data/configs/ferret/config.json",
+            "desc": "Nice job, 2 more to go",
+            "id": 4,
+            "knob_type": "concrete",
+            "logs": {
+                "load_time": 1591218738.165271,
+                "tries": [
+                    {
+                        "budget_percent": 1.1181308428446453,
+                        "if_success": false,
+                        "knob_info": {
+                            "hash": 74,
+                            "itr": 91,
+                            "probe": 62
+                        },
+                        "knob_type": "concrete",
+                        "quality_percent": -1,
+                        "time": 1591218738.463291
+                    },
+                    {
+                        "budget_percent": 1.1181308428446453,
+                        "if_success": false,
+                        "knob_info": {
+                            "hash": 74,
+                            "itr": 91,
+                            "probe": 62
+                        },
+                        "knob_type": "concrete",
+                        "quality_percent": -1,
+                        "time": 1591218738.770249
+                    },
+                    {
+                        "budget_percent": 1.1181308428446453,
+                        "if_success": false,
+                        "knob_info": {
+                            "hash": 74,
+                            "itr": 91,
+                            "probe": 62
+                        },
+                        "knob_type": "concrete",
+                        "quality_percent": -1,
+                        "time": 1591218739.111661
+                    }
+                ]
+            },
+            "name": "ferret",
+            "sub-metric": "coverage",
+            "target": 0.7
+        },
+        {
+            "budget": 55,
+            "cfg_location": "Data/configs/ferret/config.json",
+            "desc": "This is your last challenge, finish it and load in the new challenge file",
+            "id": 5,
+            "knob_type": "concrete",
+            "logs": {
+                "load_time": 1591218739.44646,
+                "tries": [
+                    {
+                        "budget_percent": 1.2197791012850674,
+                        "if_success": false,
+                        "knob_info": {
+                            "hash": 74,
+                            "itr": 91,
+                            "probe": 62
+                        },
+                        "knob_type": "concrete",
+                        "quality_percent": -1,
+                        "time": 1591218739.7568471
+                    },
+                    {
+                        "budget_percent": 1.2197791012850674,
+                        "if_success": false,
+                        "knob_info": {
+                            "hash": 74,
+                            "itr": 91,
+                            "probe": 62
+                        },
+                        "knob_type": "concrete",
+                        "quality_percent": -1,
+                        "time": 1591218740.145161
+                    }
+                ]
+            },
+            "name": "ferret",
+            "sub-metric": "ranking",
+            "target": 1.068
+        }
+    ],
+    "completion_time": 1591218741.5175848,
+    "overall_desc": "This is the same series of challenges. However, you're not provided with the knobs you saw before. Instead, this time, your knob settings will be translated to a specific program configuration (e.g., program variable values). Other than not reaching the target, some settings may violate the budget constraints, or the program constraints (invalid configurations). Try your best to find the knob settings!"
+}

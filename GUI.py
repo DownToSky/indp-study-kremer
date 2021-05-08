@@ -1,15 +1,16 @@
 from UI.RAPIDS_mainWindow import Ui_MainWindow
-import sys
+import sys, pathlib, os
 from PySide2 import QtCore, QtWidgets, QtGui
 from PySide2.QtCore import Qt
 import json
 import time
 import random
+from Core.Simulater import simulateResult, ERROR_CODE
 
 
 class UI_Controller(QtWidgets.QMainWindow):
 
-    def __init__ (self, user_study = False):
+    def __init__(self, user_study=False, sub_dir="./"):
         """
         Parameters
         ----------
@@ -23,11 +24,11 @@ class UI_Controller(QtWidgets.QMainWindow):
         self.ui.setupUi(self)
 
         # Initial layout values set
-        self.ui.stackedWidget.setCurrentIndex(0)    # Start in production mode
+        self.ui.stackedWidget.setCurrentIndex(0)  # Start in production mode
         self.setWindowTitle("RAPIDS")
         self.configs = None
 
-            # Production:
+        # Production:
         # Connecting the buttons
         self.ui.studyToggleB_product.clicked.connect(self.studyToggled)
 
@@ -41,10 +42,9 @@ class UI_Controller(QtWidgets.QMainWindow):
         self.ui.resultPathButton.clicked.connect(self.getResultPath)
 
         self.ui.doneB.clicked.connect(self.saveConfig)
-        self.disabled_unused() # Temporary production widgets disabled
+        self.disabled_unused()  # Temporary production widgets disabled
 
-
-            # User Study:
+        # User Study:
         # Connecting buttons
         self.ui.studyToggleB_study.clicked.connect(self.productionToggled)
         self.challengePath = None
@@ -57,30 +57,31 @@ class UI_Controller(QtWidgets.QMainWindow):
         self.ui.nextB_study.clicked.connect(self.loadNextChallenge)
         self.ui.knobTypeToggleB.clicked.connect(self.toggleKnobType)
 
-        
         if user_study:
-            self.setUserstudy() 
+            self.setUserstudy()
 
+        self.__set_root_dir()
+        self.sub_dir = sub_dir
 
-            
-         
+    def __set_root_dir(self):
+        # set the current path
+        current_dir = str(pathlib.Path().absolute())
+        os.environ["RAPIDS_HOME"] = current_dir
+
     def setUserstudy(self):
         """
         Hides certain widgets for user study
         """
-        self.ui.stackedWidget.setCurrentIndex(1)    # Start in user study mode
+        self.ui.stackedWidget.setCurrentIndex(1)  # Start in user study mode
         self.ui.studyToggleB_study.hide()
         self.ui.knobTypeToggleB.hide()
         #self.ui.budgetL_study.hide()
         #self.ui.budgetAmountL_study.hide()
 
-
     def loadNextChallenge(self):
         if self.curr_challenge == None:
             return
         self.loadChallenge(self.curr_challenge["id"] + 1)
-
-
 
     def loadChallenge(self, challange_id):
         """
@@ -129,19 +130,23 @@ class UI_Controller(QtWidgets.QMainWindow):
             self.ui.nextB_study.setText("Done!")
             self.ui.checkB_study.setDisabled(True)
             self.ui.nextB_study.setDisabled(True)
-            for i in reversed(range(self.ui.knobNameLayout_study.count())): 
+            for i in reversed(range(self.ui.knobNameLayout_study.count())):
                 self.ui.knobNameLayout_study.itemAt(i).widget().deleteLater()
-            for i in reversed(range(self.ui.knobsLayout_study.count())): 
+            for i in reversed(range(self.ui.knobsLayout_study.count())):
                 self.ui.knobsLayout_study.itemAt(i).widget().deleteLater()
-            for i in reversed(range(self.ui.knobValueLayout_study.count())): 
+            for i in reversed(range(self.ui.knobValueLayout_study.count())):
                 self.ui.knobValueLayout_study.itemAt(i).widget().deleteLater()
-            for i in reversed(range(self.ui.submetricsResultLayout_study.count())): 
+            for i in reversed(range(self.ui.submetricsResultLayout_study.count())):
                 self.ui.submetricsResultLayout_study.itemAt(i).widget().deleteLater()
 
         self.ui.studyPage.setEnabled(True)
 
     def saveStudyLogs(self):
-        with open("study_logs{}.json".format(time.time()), 'w') as studyFile:
+        # create sub_dir
+        subdir = "./Result/"+self.sub_dir
+        if not os.path.exists(subdir):
+            os.makedirs(subdir)
+        with open(subdir+"/study_logs_{}.json".format(self.curr_knob_type), 'w') as studyFile:
             json.dump(self.challenges, studyFile, indent=4, sort_keys=True)
 
     def check(self):
@@ -150,26 +155,37 @@ class UI_Controller(QtWidgets.QMainWindow):
         tryInfo = dict()
         tryInfo["time"] = time.time()
         tryInfo["knob_type"] = self.curr_knob_type
-        knob_names = [self.ui.knobsLayout_study.itemAt(i).widget().objectName() for i in range(self.ui.knobsLayout_study.count())]
-        knob_values = [self.ui.knobsLayout_study.itemAt(i).widget().value() for i in range(self.ui.knobsLayout_study.count())]
+        knob_names = [self.ui.knobsLayout_study.itemAt(i).widget().objectName() for i in
+                      range(self.ui.knobsLayout_study.count())]
+        knob_values = [self.ui.knobsLayout_study.itemAt(i).widget().value() for i in
+                       range(self.ui.knobsLayout_study.count())]
         tryInfo["knob_info"] = dict(zip(knob_names, knob_values))
 
-        quality, budget_utilizaiton, success = self.simulateRandomResult(tryInfo["knob_info"], self.curr_challenge["budget"])
-        if success:
+        quality, budget_utilizaiton, status = simulateResult(self.curr_challenge, self.configs[self.curr_knob_type])
+        if status == ERROR_CODE.SUCCESS:
             self.ui.successValL_study.setText("Success!")
             self.ui.successValL_study.setStyleSheet("color: green;")
             tryInfo["if_success"] = True
-        else:
-            self.ui.successValL_study.setText("Fail!")
+        elif status == ERROR_CODE.TARGET_NOT_REACHED:
+            self.ui.successValL_study.setText("Target Not Reached!")
+            self.ui.successValL_study.setStyleSheet("color: yellow;")
+            tryInfo["if_success"] = False
+        elif status == ERROR_CODE.INVALID:
+            self.ui.successValL_study.setText("Configuration Not Valid!")
             self.ui.successValL_study.setStyleSheet("color: red;")
             tryInfo["if_success"] = False
+        elif status == ERROR_CODE.OVER_BUDGET:
+            self.ui.successValL_study.setText("Over the Budget!")
+            self.ui.successValL_study.setStyleSheet("color: red;")
+            tryInfo["if_success"] = False
+        self.ui.budgetUtilValL.setText("{}".format(budget_utilizaiton))
         self.ui.qualityValL_study.setText("{}".format(quality))
         tryInfo["quality_percent"] = quality
         tryInfo["budget_percent"] = budget_utilizaiton
         self.curr_challenge["logs"]["tries"].append(tryInfo)
 
     def simulateRandomResult(self, knobDict, budget):
-        return random.randint(1,100), random.randint(1, 1000)/budget, True
+        return random.randint(1, 100), random.randint(1, 1000) / budget, True
 
     def getChallengePath(self):
         path = QtWidgets.QFileDialog.getOpenFileName()
@@ -187,16 +203,15 @@ class UI_Controller(QtWidgets.QMainWindow):
             self.challenges = json.load(chFile)
             self.ui.InstructionsTextBrowser.setText(self.challenges["overall_desc"])
             self.loadChallenge(0)
-    
+
     def toggleKnobType(self):
         if self.curr_knob_type == None:
-             return
+            return
         elif self.curr_knob_type == "virtual":
             self.curr_knob_type = "concrete"
         else:
             self.curr_knob_type = "virtual"
         self.loadKnobs()
-
 
     def studyToggled(self):
         self.ui.stackedWidget.setCurrentIndex(1)
@@ -212,12 +227,11 @@ class UI_Controller(QtWidgets.QMainWindow):
         knob_type = self.curr_knob_type
         self.configs[knob_type][knob_name] = self.sender().value()
         knobValueLabel = None
-        for i in range(self.ui.knobValueLayout_study.count()): 
+        for i in range(self.ui.knobValueLayout_study.count()):
             if self.ui.knobValueLayout_study.itemAt(i).widget().objectName() == knob_name:
                 knobValueLabel = self.ui.knobValueLayout_study.itemAt(i).widget()
         assert knobValueLabel != None, "knob value label with proper object file not found"
         knobValueLabel.setText(str(self.sender().value()) + "%")
-
 
     def saveConfig(self):
         if self.configs == None:
@@ -230,29 +244,29 @@ class UI_Controller(QtWidgets.QMainWindow):
     def loadKnobs(self):
         MIN_VAL = 1
         MAX_VAL = 100
-        for i in reversed(range(self.ui.knobNameLayout_study.count())): 
+        for i in reversed(range(self.ui.knobNameLayout_study.count())):
             self.ui.knobNameLayout_study.itemAt(i).widget().deleteLater()
-        for i in reversed(range(self.ui.knobsLayout_study.count())): 
+        for i in reversed(range(self.ui.knobsLayout_study.count())):
             self.ui.knobsLayout_study.itemAt(i).widget().deleteLater()
-        for i in reversed(range(self.ui.knobValueLayout_study.count())): 
+        for i in reversed(range(self.ui.knobValueLayout_study.count())):
             self.ui.knobValueLayout_study.itemAt(i).widget().deleteLater()
-        for i in reversed(range(self.ui.submetricsResultLayout_study.count())): 
+        for i in reversed(range(self.ui.submetricsResultLayout_study.count())):
             self.ui.submetricsResultLayout_study.itemAt(i).widget().deleteLater()
         for knob_name in self.configs[self.curr_knob_type]:
             # Labels showing which knob is which prefrence
             knobLabel = QtWidgets.QLabel()
-            knobLabel.setObjectName(knob_name)   #used to get the object later
+            knobLabel.setObjectName(knob_name)  # used to get the object later
             knobLabel.setText(knob_name)
-            knobLabel.setAlignment(Qt.AlignCenter|Qt.AlignBottom)
+            knobLabel.setAlignment(Qt.AlignCenter | Qt.AlignBottom)
 
             knob = QtWidgets.QDial()
-            knob.setObjectName(knob_name)   #used to get the object later
+            knob.setObjectName(knob_name)  # used to get the object later
             knob.setMaximum(MAX_VAL)
             knob.setMinimum(MIN_VAL)
             value_in_config = self.configs[self.curr_knob_type][knob_name]
             knobValueLabel = QtWidgets.QLabel()
-            knobValueLabel.setObjectName(knob_name)   #used to get the object later
-            knobValueLabel.setAlignment(Qt.AlignCenter|Qt.AlignBottom)
+            knobValueLabel.setObjectName(knob_name)  # used to get the object later
+            knobValueLabel.setAlignment(Qt.AlignCenter | Qt.AlignBottom)
             if value_in_config > MAX_VAL:
                 knob.setValue(MAX_VAL)
                 knobValueLabel.setText(str(MAX_VAL) + "%")
@@ -262,7 +276,7 @@ class UI_Controller(QtWidgets.QMainWindow):
             else:
                 knob.setValue(value_in_config)
                 knobValueLabel.setText(str(int(value_in_config)) + "%")
-            
+
             knob.valueChanged.connect(self.updatePrefrences)
 
             self.ui.knobNameLayout_study.addWidget(knobLabel)
@@ -305,7 +319,6 @@ class UI_Controller(QtWidgets.QMainWindow):
         else:
             self.configDir = None
 
-
     # TODO: makesure the returned path is nonempty
     def getResultPath(self):
         path = QtWidgets.QFileDialog.getSaveFileName()
@@ -314,14 +327,19 @@ class UI_Controller(QtWidgets.QMainWindow):
         self.resultPath = path[0]
 
 
-
-
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     user_study = False
-    if "--user-study" in sys.argv:
-        user_study = True
-    window = UI_Controller(user_study=user_study)
+    argv = list(reversed(sys.argv))
+    user = ""
+    while len(argv) > 0:
+        arg = argv.pop()
+        if arg == "--user-study":
+            user_study = True
+        elif arg == "--user":
+            user = argv.pop()
+
+    window = UI_Controller(user_study=user_study, sub_dir=user)
     window.show()
 
     sys.exit(app.exec_())
